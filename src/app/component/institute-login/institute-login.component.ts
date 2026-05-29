@@ -11,6 +11,7 @@ import { LoginRepresentation } from '../services/api/module/login-representation
 })
 export class InstituteLoginComponent {
   loginObj: LoginRepresentation = {}
+  
   constructor(
     private userService: UserService,
     private userAuthService: UserAuthService,

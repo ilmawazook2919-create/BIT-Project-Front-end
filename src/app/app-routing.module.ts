@@ -9,6 +9,14 @@ import { InstituteLoginComponent } from './component/institute-login/institute-l
 import { ForbiddenComponent } from './component/forbidden/forbidden.component';
 import { AuthGuard } from './component/auth/auth.guard';
 import { PrivilegeComponent } from './component/privilege/privilege.component';
+import { PartComponent } from './component/part/part.component'
+import { InventoryLevelComponent } from './component/inventory-level/inventory-level.component';
+import { CategoryComponent } from './component/category/category.component';
+import { CustomerComponent } from './component/customer/customer.component';
+import { SupplierComponent } from './supplier/supplier.component';
+import { WarehouseComponent } from './warehouse/warehouse.component';
+import { BinComponent } from './component/bin/bin.component';
+
 
 const routes: Routes = [
   
@@ -26,7 +34,21 @@ const routes: Routes = [
 
   {path : 'forbidden',component : ForbiddenComponent},
   
-  {path : 'privilege',component : PrivilegeComponent, canActivate:[AuthGuard], data:{roles:['admin','user']}}
+  {path : 'privilege',component : PrivilegeComponent, canActivate:[AuthGuard], data:{roles:['admin','user']}},
+
+  {path : 'part',component : PartComponent, canActivate:[AuthGuard], data:{roles:['admin']}},
+
+  {path : 'inventoryLevel',component : InventoryLevelComponent,canActivate:[AuthGuard], data:{roles:['admin']}},
+
+  {path : 'category',component : CategoryComponent,canActivate:[AuthGuard], data:{roles:['admin']}},
+
+   {path : 'customer',component : CustomerComponent,canActivate:[AuthGuard], data:{roles:['admin']}},
+
+   {path : 'supplier',component : SupplierComponent,canActivate:[AuthGuard], data:{roles:['admin']}},
+
+  {path : 'warehouse',component : WarehouseComponent,canActivate:[AuthGuard], data:{roles:['admin']}},
+
+  {path : 'bin',component : BinComponent,canActivate:[AuthGuard], data:{roles:['admin']}},
 ];
 
 @NgModule({

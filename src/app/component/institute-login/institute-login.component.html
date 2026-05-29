@@ -1,42 +1,45 @@
-<main class="mt-5 pt-3">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-12 mb-3">
-          <div class="card text-dark mb-3 h-100">
-            <div class="card-header  fw-bold text-light text-center fs-2">Login Form</div>
-            <div class="card-body">
-                <form (ngSubmit)="login()">
-                    <div class="mb-3">
-                      <label for="userName" class="form-label">Email address</label>
-                      <input class="form-control" id="userName"
-                      [(ngModel)]="loginObj.username" name="username">
-                    </div>
-
-                    <div class="">
-                      <label for="userPassword" class="form-label">Password</label>
-                      <input class="form-control" id="userPassword"
-                      [(ngModel)]="loginObj.userPassword" name="userPassword">
-                    </div>
-
-                  
-                    <div class="form-group mt-4">
-                      <div class="row">
-                        <div class="col-lg-4"></div>
-                        <div class="col-lg-4 text-center"> <button type="submit" class="btn btn-info text-light login-btn">login</button></div>
-                        <div class="col-lg-4"></div>
-                      </div>
-                    </div>
-
-                    <div class="form-group mt-1">
-                      <div class="row text-center">
-                          <p>Don't have any account ? <br><a>Signup</a> here</p>
-                      </div>
-                    </div>
-                    
-                </form>
-            </div>
+<main class="login-container">
+  <div class="container h-100 d-flex justify-content-center align-items-center">
+    <div class="col-lg-4 col-md-6 col-sm-10">
+      
+      <div class="card eco-login-card shadow-lg border-0 p-4">
+        <div class="card-body">
+          
+          <div class="text-center mb-4">
+            <h2 class="eco-login-title">Welcome Back</h2>
+            <p class="eco-login-subtitle">Sign in to your account</p>
           </div>
-        </div> 
+
+          <form (ngSubmit)="login()">
+            <div class="mb-3">
+              <label for="userName" class="form-label-eco">EMAIL ADDRESS</label>
+              <input type="email" class="form-control eco-input" id="userName"
+                     [(ngModel)]="loginObj.username" name="username" placeholder="Enter email">
+            </div>
+
+            <div class="mb-4">
+              <label for="userPassword" class="form-label-eco">PASSWORD</label>
+              <input type="password" class="form-control eco-input" id="userPassword"
+                     [(ngModel)]="loginObj.userPassword" name="userPassword" placeholder="Enter password">
+            </div>
+
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-eco-primary py-2 rounded-pill shadow-sm">
+                SIGN IN
+              </button>
+            </div>
+
+            <div class="text-center mt-4">
+              <p class="small eco-text-muted">
+                Don't have an account? <br>
+                <a href="#" class="eco-link-bold text-decoration-none">Signup</a>
+              </p>
+            </div>
+          </form>
+
+        </div>
       </div>
+
     </div>
-  </main>
+  </div>
+</main>

@@ -17,6 +17,13 @@ import { AuthGuard } from './component/auth/auth.guard';
 import { AuthInterceptor } from './component/auth/auth.interceptor';
 import { InstituteLoginComponent } from './component/institute-login/institute-login.component';
 import { PrivilegeComponent } from './component/privilege/privilege.component';
+import { PartComponent } from './component/part/part.component';
+import { InventoryLevelComponent } from './component/inventory-level/inventory-level.component';
+import { CategoryComponent } from './component/category/category.component';
+import { CustomerComponent } from './component/customer/customer.component';
+import { SupplierComponent } from './supplier/supplier.component';
+import { WarehouseComponent } from './warehouse/warehouse.component';
+import { BinComponent } from './component/bin/bin.component';
 
 
 @NgModule({
@@ -29,7 +36,14 @@ import { PrivilegeComponent } from './component/privilege/privilege.component';
     ClassComponent,
     ForbiddenComponent,
     InstituteLoginComponent,
-    PrivilegeComponent
+    PrivilegeComponent,
+    PartComponent,
+    InventoryLevelComponent,
+    CategoryComponent,
+    CustomerComponent,
+    SupplierComponent,
+    WarehouseComponent,
+    BinComponent
   ],
   imports: [
     BrowserModule,

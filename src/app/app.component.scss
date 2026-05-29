@@ -1,113 +1,190 @@
-:root{
-    --offcanvas-width:270px;
-    --topNavBarHeight: 56px;
-}
-.card-title{
-    text-align: center;
-    bottom: 0;
-    padding: 25px;
-}
-img{
-    width: 100%;
-    background-size: cover;
-    height: auto;
-}
-.card, .card-header, .card-body{
-    border-radius: 25px;
-    border: none;
-}
-.card-body{
-    color: rgb(0, 0, 0);
-    background-color: rgb(125, 249, 255)
-}
-.card-body:hover{
-    color: rgb(255, 0, 0);
-    background-color: rgb(15, 180, 189);
-    cursor: pointer;
-}
-.card1{
-    background-image: url(../assets/cards/card1.jpg);
-    height: 100%;
-    width: 100%;
-    background-size: cover;
-}
-.card2{
-    background-image: url(../assets/cards/card2.jpg);
-    height: 100%;
-    width: 100%;
-    background-size: cover;
-}
-.card3{
-    background-image: url(../assets/cards/card3.jpg);
-    height: 100%;
-    width: 100%;
-    background-size: cover;
-}
-.card4{
-    background-image: url(../assets/cards/card4.jpg);
-    height: 100%;
-    width: 100%;
-    background-size: cover;
-}
-.card5{
-    background-image: url(../assets/cards/card5.jpg);
-    height: 100%;
-    width: 100%;
-    background-size: cover;
-}
-.card6{
-    background-image: url(../assets/cards/card6.jpg);
-    height: 100%;
-    width: 100%;
-    background-size: cover;
-}
-.card-header{
-    background-color: rgb(0, 71, 171);
-    color: white;
+/* --- ROOT VARIABLES --- */
+:root {
+  --offcanvas-width: 260px;
+  --topNavBarHeight: 80px;
+  --vintage-cream: #fdfaf5; /* Clean archival paper background */
+  --vintage-ink: #1a1a1a;
+  --vintage-header-bg: #d6cfc7; /* Muted tan for headers */
+  --vintage-gold: #d4af37;
+  --alert-red: #a82a2a;
 }
 
-.sidebar-nav{
-    width: 270px;;
+
+
+/* --- GLOBAL STYLES --- */
+body.vintage-theme {
+  background-color: var(--vintage-cream) !important;
+  color: var(--vintage-ink);
+  font-family: 'Segoe UI', sans-serif;
 }
-.sidebar-link{
+
+/* --- NAV BAR --- */
+.navbar {
+    height: 56px;
+    z-index: 1050; /* Stay on top of everything */
+}
+
+.navbar-custom {
+  background-color: #1a1d20 !important;
+  border-bottom: 2px solid var(--vintage-gold);
+}
+
+/* --- METRIC CARDS (Minimalist Industrial) --- */
+.metric-card {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  text-align: center;
+  padding: 20px 10px;
+}
+.industrial-dark {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Navbar Tuning */
+.bg-black { background-color: #000000 !important; }
+
+/* Industrial Card Styling */
+.industrial-card {
+    height: 200px;
+    background-color: #2d2d2d;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    border-radius: 0; /* Industrial sharp corners */
+}
+
+/* Background images - replace with your actual asset paths */
+.inventory-bg { background-image: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=500'); }
+.warehouse-bg { background-image: url('https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&q=80&w=500'); }
+.alert-bg { background-image: url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=500'); }
+
+.card-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.75); /* Dark tint like the picture */
+    padding: 20px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    border-top: 4px solid #333;
 }
 
-.sidebar-link .right-icon{
-    display: inline-flex;
-    transition: all ease 0.8s;
+.alert-border { border-top: 4px solid #dc3545 !important; }
+
+.card-label {
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #888;
+    text-transform: uppercase;
 }
 
-.sidebar-link[aria-expanded="true"] .right-icon{
-    transform: rotate(180deg);
+.card-main-value {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #ffc107;
+    text-shadow: 0 0 15px rgba(255, 193, 7, 0.3);
 }
 
-.navbar-toggler .top-icon{
-    display: inline-flex;
-    transition: all ease 0.8s;
+.spin-slow {
+    animation: spin 8s linear infinite;
+    display: inline-block;
 }
 
-.navbar-toggler[aria-expanded="true"] .top-icon{
-    transform: rotate(180deg);
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
-@media (min-width:992px){
-    
-    .offcanvas-backdrop::before {
-        display: none;
-    }
-    .sidebar-nav{
-        transform: none;
-        visibility: visible !important;
-        top: 56px;
-        height:calc(100% - var(--topNavBarHeight));
-    }
-    main{
-        margin-left: 270PX;
-    }
-    .muted{
-        color: rgb(161, 161, 161);
-    }
-    
+/* Fix button clickability */
+.btn-warning {
+    background-color: #ffc107 !important;
+    color: #000 !important;
+    border: none !important;
+    position: relative;
+    z-index: 9999;
+}
+.metric-value {
+  font-weight: 800;
+  font-size: 4rem; /* Prominent numbers like in the reference */
+  margin-top: 10px;
+  color: var(--vintage-ink);
+  text-shadow: 2px 2px 5px rgba(184, 177, 174, 0.1);
+}
+
+.metric-label {
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  color: #080707;
+  text-transform: uppercase;
+}
+.metric-box {
+  background: #1a1d23;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  padding: 20px;
+  color: white;
+}
+
+.metric-box:hover {
+  border-color: #f5b400;
+}
+.industrial-sidebar {
+  background-color: #1a1a1a !important;
+  border-right: 2px solid #ffc107 !important;
+  width: 280px !important;
+  top: 56px !important; /* Positions it below the navbar */
+  height: calc(100vh - 56px) !important;
+  visibility: visible !important;
+  transform: none !important; /* Keeps it locked to the side */
+}
+
+/* Fix Link Colors */
+.industrial-sidebar .nav-link {
+  color: #ced4da !important;
+  transition: 0.3s;
+}
+
+.industrial-sidebar .nav-link:hover {
+  color: #ffc107 !important;
+  background-color: rgba(255, 193, 7, 0.1);
+}
+
+.sidebar-heading {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #6c757d;
+  letter-spacing: 1px;
+  margin-top: 1rem;
+}
+
+/* UUID Styling */
+.text-muted {
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+}
+
+/* --- STATUS STAMPS --- */
+.status-stamp {
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  padding: 4px 15px;
+  border: 2px solid #333;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  display: inline-block;
+}
+
+.status-stamp.ok {
+  border-color: #333;
+  color: #333;
+}
+
+.status-stamp.warn {
+  border-color: #333;
+  color: var(--alert-red);
 }

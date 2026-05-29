@@ -1,44 +1,118 @@
-img{
-    width: 100%;
-    background-size: cover;
-    height: auto;
-}
-.card-title{
-    text-align: center;
-    bottom: 0;
-    padding: 25px;
-}
-.card, .card-header, .card-body{
-    border-radius: 25px;
-    border: none;
-}
-.card-body{
-    color: rgb(0, 0, 0);
-    background-color: rgb(125, 249, 255)
-}
-.card1{
-    background-image: url(../../../assets/cards/card1.jpg);
-    height: 100%;
-    width: 100%;
-    background-size: cover;
-}
-.card2{
-    background-image: url(../../../assets/cards/card2.jpg);
-    height: 100%;
-    width: 100%;
-    background-size: cover;
+/* Container override for Industrial Look */
+.industrial-dark main {
+    background-color: #0d1117; /* Deep Charcoal */
+    color: #e6edf3;
+    min-height: 100vh;
 }
 
-.card3{
-    background-image: url(../../../assets/cards/card3.jpg);
-    height: 100%;
-    width: 100%;
+/* Sharp, technical cards */
+.card {
+    border-radius: 0px !important; /* Industrial is sharp, not rounded */
+    border: 1px solid #30363d !important;
+    background-color: #161b22 !important;
+    margin-bottom: 1.5rem;
+}
+
+/* Card Header with accent border */
+.card-header {
+    border-radius: 0px !important;
+    background-color: #21262d !important;
+    color: #f0ad4e !important; /* Industrial Yellow */
+    border-bottom: 1px solid #30363d !important;
+    font-family: 'Segoe UI Mono', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Data Body with subtle glow */
+.card-body {
+    background-color: transparent !important;
+    color: #ffffff !important;
+}
+
+/* The Background Image Cards (with dark overlay) */
+.card1, .card2, .card3 {
+    position: relative;
+    overflow: hidden;
+    min-height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Adding a dark tint to background images for readability */
+.card1::before, .card2::before, .card3::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Tint */
+    z-index: 1;
+}
+
+/* Base style for all metric card bodies */
+.card-body.card1, .card-body.card2, .card-body.card3 {
+    position: relative;
+    overflow: hidden;
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-position: center;
     background-size: cover;
+    z-index: 1; /* Establishes stacking context */
 }
-.card-header{
-    background-color: rgb(0, 71, 171);
-    color: white;
+
+/* Dark Tint Overlay */
+.card-body::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Adjust 0.7 to make it darker or lighter */
+    z-index: -1; /* Puts the tint behind the text but in front of the image */
 }
-.dashboard-table{
-    background-color: rgb(255, 255, 255)
+
+/* Specific Background Images */
+.card1 { 
+    background-image: url('../../../assets/parts/a.jpg')
+}
+.card2 { 
+    background-image: url('../../../assets/parts/b.avif'); 
+}
+.card3 { 
+    background-image: url('../../../assets/parts/c.jpg'); 
+}
+
+/* Ensure the text stays on top */
+.card-title {
+    position: relative;
+    z-index: 2;
+    margin: 0;
+}
+
+.card-title {
+    position: relative;
+    z-index: 2;
+    font-weight: 800;
+    font-size: 2.5rem;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+}
+
+/* Tables in Industrial Theme */
+.dashboard-table {
+    background-color: #0d1117 !important;
+}
+
+.table {
+    color: #c9d1d9 !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+.data-table th {
+    border-bottom: 2px solid #f0ad4e !important;
+    color: #8b949e;
 }

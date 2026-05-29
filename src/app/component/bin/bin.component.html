@@ -1,0 +1,128 @@
+<main class="mt-5 pt-3">
+  <div class="container-fluid">
+
+    <!-- Page Title -->
+    <div class="row">
+      <div class="col-md-12 fw-bold fs-3">
+        BIN REGISTRATION
+      </div>
+    </div>
+
+    <!-- Bin Form Card -->
+    <div class="row">
+      <div class="col-lg-12 mb-3">
+        <div class="card text-dark mb-3 h-100">
+          <div class="card-header bg-info fw-bold">Bin Form</div>
+          <div class="card-body">
+            <form (ngSubmit)="SaveBin()">
+
+              <!-- Bin Code -->
+              <div class="form-group">
+                <label for="binCode">Bin Code</label>
+                <input type="text" class="form-control mt-2" id="binCode" name="binCode"
+                  [(ngModel)]="binObj.binCode" required placeholder="Enter Bin Code">
+              </div>
+
+              <!-- Bin Description -->
+              <div class="form-group mt-3">
+                <label for="binDescription">Bin Description</label>
+                <textarea class="form-control mt-2" id="binDescription" name="binDescription" rows="3"
+                  [(ngModel)]="binObj.binDescription" placeholder="Enter Bin Description"></textarea>
+              </div>
+
+              <!-- Status -->
+              <div class="form-group mt-3">
+                <label for="status">System Status</label>
+                <select class="form-control mt-2" id="status" [(ngModel)]="binObj.status" name="status">
+                  <option [ngValue]="null" disabled>Select Status</option>
+                  <option value="ACTIVE">Active</option>
+                  <option value="INACTIVE">Inactive</option>
+                </select>
+              </div>
+
+              <!-- Form Actions -->
+              <div class="form-group mt-4">
+                <div class="text-end ms-auto">
+                  <button id="saveBtn" class="btn btn-primary">
+                    {{isEditBin == false ? "Submit" : "Update"}}
+                  </button>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bin Table Card -->
+    <div class="row">
+      <div class="col-lg-12 mb-3">
+        <div class="card text-dark mb-3 h-100">
+          <div class="card-header bg-info fw-bold">Bin Table</div>
+          <div class="card-body">
+
+            <!-- Search Bar -->
+            <div class="input-group my-3">
+              <input type="text" class="form-control" placeholder="Search Bin">
+              <button class="btn btn-info" type="button">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
+
+            <!-- Table -->
+            <div class="table-responsive">
+              <table id="binTableId" class="table table-striped table-bordered table-wrapper">
+                <thead>
+                  <tr>
+                    <th>Bin Id</th>
+                    <th>Bin Code</th>
+                    <th>Bin Description</th>
+                    <th>Created By</th>
+                    <th>Created Date</th>
+                    <th>Modified By</th>
+                    <th>Modified Date</th>
+                    <th>Status</th>
+                    <th class="text-center">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let binObj of bins">
+                    <td>{{binObj.id}}</td>
+                    <td>{{binObj.binCode}}</td>
+                    <td>{{binObj.binDescription}}</td>
+                    <td>{{binObj.binCreatedBy}}</td>
+                    <td>{{binObj.binCreatedDate}}</td>
+                    <td>{{binObj.binModifiedBy}}</td>
+                    <td>{{binObj.binModifiedDate}}</td>
+                    <td>{{binObj.status.name}}</td>
+                    <td class="text-center">
+                      <div class="d-flex justify-content-center">
+                        <button class="btn btn-warning btn-sm me-1" 
+                          [disabled]="updateBtn" 
+                          (click)="GetBinById(binObj.id)">
+                          <i class="bi bi-pencil-square"></i>
+                        </button>
+
+                        <button class="btn btn-danger btn-sm me-1" 
+                          (click)="DeleteById(binObj.id)">
+                          <i class="bi bi-archive"></i>
+                        </button>
+
+                        <button class="btn btn-info btn-sm">
+                          <i class="bi bi-file-earmark"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>

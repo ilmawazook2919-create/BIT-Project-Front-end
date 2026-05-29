@@ -1,15 +1,73 @@
-.login-btn{
-    width: 50%;
-    background-color: rgb(0, 71, 171);
-    border-radius: 25px;
-    border: none;
+/* Full screen background with your theme's image */
+.login-container {
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+              url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=2000'); /* Professional Engineering/Spare Parts background */
+  background-size: cover;
+  background-position: center;
 }
-.card, .card-body{
-    color: rgb(0, 0, 0);
-    border-radius: 45px;
+
+/* Centered White Card */
+.eco-login-card {
+  border-radius: 20px !important;
+  background-color: #ffffff;
 }
-.card-header{
-    background-color: rgb(0, 71, 171);
-    border-radius: 45px;
-    color: white;
+
+.eco-login-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  color: #1a3320;
+  font-size: 2rem;
+}
+
+.eco-login-subtitle {
+  color: #639922;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+/* Inputs styling */
+.form-label-eco {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #3b6d11;
+  letter-spacing: 1px;
+}
+
+.eco-input {
+  border: 1.5px solid #eaf3de !important;
+  border-radius: 10px !important;
+  padding: 10px 15px !important;
+  font-size: 0.9rem;
+}
+
+.eco-input:focus {
+  border-color: #97c459 !important;
+  box-shadow: 0 0 0 0.2rem rgba(151, 196, 89, 0.25) !important;
+}
+
+/* Primary Button - Forest Green to match your Spare Parts logo */
+.btn-eco-primary {
+  background-color: #3b6d11;
+  border-color: #3b6d11;
+  color: white;
+  font-weight: 700;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.btn-eco-primary:hover {
+  background-color: #27500a;
+  border-color: #27500a;
+  transform: translateY(-1px);
+}
+
+.eco-link-bold {
+  color: #3b6d11;
+  font-weight: 700;
+}
+
+.eco-text-muted {
+  color: #6c757d;
 }

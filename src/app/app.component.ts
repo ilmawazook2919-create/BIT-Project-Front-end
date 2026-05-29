@@ -35,6 +35,7 @@ export class AppComponent {
     }
 
     public logIn(){
+      console.log("Login button clicked!");
       this.router.navigate(['/login']);
     }
 
