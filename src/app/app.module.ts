@@ -24,6 +24,8 @@ import { CustomerComponent } from './component/customer/customer.component';
 import { SupplierComponent } from './supplier/supplier.component';
 import { WarehouseComponent } from './warehouse/warehouse.component';
 import { BinComponent } from './component/bin/bin.component';
+import { PurchaseOrderItemComponent } from './purchase-order-item/purchase-order-item.component';
+
 
 
 @NgModule({
@@ -43,7 +45,8 @@ import { BinComponent } from './component/bin/bin.component';
     CustomerComponent,
     SupplierComponent,
     WarehouseComponent,
-    BinComponent
+    BinComponent,
+    PurchaseOrderItemComponent
   ],
   imports: [
     BrowserModule,
