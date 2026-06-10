@@ -16,8 +16,8 @@
               
               <div class="row">
                 <div class="form-group col-md-6">
-                  <label for="poId">PurchaseOrder Id <span>*</span></label>
-                  <input type="text" class="form-control mt-2" id="poId" name="poId"
+                  <label for="purchasOrderId">PurchaseOrder Id <span>*</span></label>
+                  <input type="text" class="form-control mt-2" id="purchaseOrderId" name="purchaseOrderId"
                     [(ngModel)]="purchaseOrderItemObj.purchaseOrderId" required placeholder="Enter purchase order">
                 </div>
 
@@ -59,7 +59,7 @@
               <div class="form-group mt-4">
                 <div class="text-end ms-auto">
                   <button id="saveBtn" class="btn btn-primary">
-                    {{isEditpurchaseOrderItem == false ? "Submit" : "Update"}}
+                    {{isEditPurchaseOrderItem == false ? "Submit" : "Update"}}
                   </button>
                 </div>
               </div>
@@ -98,7 +98,7 @@
               </thead>
 
               <tbody>
-                <tr *ngFor="let item of PurchaseOrderItems">
+                <tr *ngFor="let purchaseOrderItemObj of PurchaseOrderItems">
                   <td>{{purchaseOrderItemObj.purchaseOrderItemId}}</td>
                   <td>{{purchaseOrderItemObj.purchaseOrderId}}</td>
                   <td>{{purchaseOrderItemObj.partId}}</td>
@@ -114,7 +114,7 @@
                     <button class="btn btn-warning btn-sm me-1"[disabled]="updateBtn"  (click)="GetPurchaseOrderItemById(purchaseOrderItemObj .id)">
                       <i class="bi bi-pencil-square"></i>
                     </button>
-                    <button class="btn btn-danger btn-sm me-1" id="deleteBtn" (click)="DeletePurchaseOrderItem(purchaseOrderItemObj .id)">
+                    <button class="btn btn-danger btn-sm me-1" id="deleteBtn" (click)="DeleteById(purchaseOrderItemObj .id)">
                       <i class="bi bi-archive"></i>
                     </button>
                   </td>

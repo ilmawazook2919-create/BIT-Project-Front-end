@@ -25,6 +25,7 @@ import { SupplierComponent } from './supplier/supplier.component';
 import { WarehouseComponent } from './warehouse/warehouse.component';
 import { BinComponent } from './component/bin/bin.component';
 import { PurchaseOrderItemComponent } from './purchase-order-item/purchase-order-item.component';
+import { PurchaseOrderComponent } from './purchase-order/purchase-order.component';
 
 
 
@@ -46,7 +47,8 @@ import { PurchaseOrderItemComponent } from './purchase-order-item/purchase-order
     SupplierComponent,
     WarehouseComponent,
     BinComponent,
-    PurchaseOrderItemComponent
+    PurchaseOrderItemComponent,
+    PurchaseOrderComponent
   ],
   imports: [
     BrowserModule,

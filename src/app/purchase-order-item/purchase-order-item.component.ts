@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { PrivilegeService } from '../component/services/api/privilege/privilege.service';
 import { UserAuthService } from '../component/services/api/user/user-auth.service';
 import { FormBuilder } from '@angular/forms';
+import { PurchaseOrderItemRepresentation } from '../component/services/api/module/purchase-order-item-representation';
+import { PurchaseOrderItemService } from '../purchase-order-item.service';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-purchase-order-item',
@@ -32,7 +35,7 @@ export class PurchaseOrderItemComponent {
      public fb: FormBuilder) {}
         ngOnInit(): void {
     this.isEditPurchaseOrderItem = false;
-    this.GetAllInventoryLevel();
+    this.GetAllPurchaseOrderItem();
     this.getprivilegeforComponent();
 
 }
@@ -47,7 +50,7 @@ getprivilegeforComponent():void{
         }
   }
 
-    this.moduleId = "2";
+    this.moduleId = "7";
     this.privilegeService.GetAllPrivilegeForComponent(this.roleName,this.moduleId).subscribe(allData=>{ 
     this.allAccess = allData.data.dataList[0];
     
@@ -133,7 +136,7 @@ DeleteById(ID:any){
 }
 
 GetAllPurchaseOrderItem(){
-  this.purchaseOrderItemService.GetAllPurchaseOrderItems().subscribe(allData=>{
+  this.purchaseOrderItemService.GetAllpurchaseOrderItems().subscribe(allData=>{
     this.PurchaseOrderItems= allData.data.dataList; 
   });
 }
