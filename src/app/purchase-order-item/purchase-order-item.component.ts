@@ -113,6 +113,7 @@ SavePurchaseOrderItem():void{
 
 GetPurchaseOrderItemById(ID:any){
   this.purchaseOrderItemService.GetPurchaseOrderItemById(ID).subscribe(allData=>{ 
+    console.log(allData)
     this.purchaseOrderItemObj = allData.data.dataList[0];
     this.isEditPurchaseOrderItem= true;
   })
