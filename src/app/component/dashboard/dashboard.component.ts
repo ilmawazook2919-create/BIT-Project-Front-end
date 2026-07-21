@@ -16,26 +16,26 @@ export class DashboardComponent {
       (async function() {
         const data = [
           { 
-            year: 2010,
+            year: 2020,
             count: 40 
           },
           { 
-            year: 2011,
+            year: 2021,
             count: 169 
           },
           { 
-            year: 2012,
+            year: 2022,
             count: 82
           },{ 
-            year: 2014,
+            year: 2023,
             count: 150
           }
           ,{ 
-            year: 2015,
+            year: 2024,
             count: 220
           }
           ,{ 
-            year: 2016,
+            year: 2025,
             count: 400
           }
         ];
@@ -48,7 +48,7 @@ export class DashboardComponent {
               labels: data.map(row => row.year),
               datasets: [
                 {
-                  label: 'Enrollment by Year',
+                  label: 'Part consumption by Year',
                   data: data.map(row => row.count)
                 }
               ]
@@ -64,7 +64,7 @@ export class DashboardComponent {
              labels: data.map(row => row.year),
              datasets: [
                {
-                 label: 'Marks by Year',
+                 label: 'Procurement by year',
                  data: data.map(row => row.count)
                }
              ]

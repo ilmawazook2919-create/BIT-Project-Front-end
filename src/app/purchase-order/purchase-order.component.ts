@@ -12,7 +12,7 @@ import swal from 'sweetalert';
   styleUrls: ['./purchase-order.component.scss']
 })
 export class PurchaseOrderComponent {
-     deleteValue: string;
+  deleteValue: string;
   editValue: string;
   insertValue: string;
   selectValue: string;

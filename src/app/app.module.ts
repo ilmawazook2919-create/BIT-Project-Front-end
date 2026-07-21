@@ -26,6 +26,8 @@ import { WarehouseComponent } from './warehouse/warehouse.component';
 import { BinComponent } from './component/bin/bin.component';
 import { PurchaseOrderItemComponent } from './purchase-order-item/purchase-order-item.component';
 import { PurchaseOrderComponent } from './purchase-order/purchase-order.component';
+import { GoodsReceivedNoteComponent } from './component/goods-received-note/goods-received-note.component';
+import { GrnItemComponent } from './grn-item/grn-item.component';
 
 
 
@@ -48,7 +50,9 @@ import { PurchaseOrderComponent } from './purchase-order/purchase-order.componen
     WarehouseComponent,
     BinComponent,
     PurchaseOrderItemComponent,
-    PurchaseOrderComponent
+    PurchaseOrderComponent,
+    GoodsReceivedNoteComponent,
+    GrnItemComponent
   ],
   imports: [
     BrowserModule,

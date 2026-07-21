@@ -18,6 +18,9 @@ import { WarehouseComponent } from './warehouse/warehouse.component';
 import { BinComponent } from './component/bin/bin.component';
 import { PurchaseOrderComponent } from './purchase-order/purchase-order.component';
 import { PurchaseOrderItemComponent } from './purchase-order-item/purchase-order-item.component';
+import { GoodsReceivedNoteComponent } from './component/goods-received-note/goods-received-note.component';
+import { GrnItemComponent } from './grn-item/grn-item.component';
+
 
 
 const routes: Routes = [
@@ -56,6 +59,10 @@ const routes: Routes = [
 
   {path : 'purchaseOrder',component : PurchaseOrderComponent,canActivate:[AuthGuard], data:{roles:['admin']}},
 
+  {path : 'goodsReceivedNote',component : GoodsReceivedNoteComponent,canActivate:[AuthGuard], data:{roles:['admin']}},
+  
+  {path : 'grnItem',component : GrnItemComponent,canActivate:[AuthGuard], data:{roles:['admin']}},
+  
 ];
 
 @NgModule({

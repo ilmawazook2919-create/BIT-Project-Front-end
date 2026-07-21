@@ -145,7 +145,7 @@ DeleteById(ID:any){
       .subscribe(allData => {
 
         this.parts = allData.data.dataList;
-
+      
       });
 
   } 
