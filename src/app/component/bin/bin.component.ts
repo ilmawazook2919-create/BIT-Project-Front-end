@@ -12,7 +12,7 @@ import swal from 'sweetalert';
   styleUrls: ['./bin.component.scss']
 })
 export class BinComponent {
-   deleteValue:string;
+    deleteValue:string;
     editValue:string;
     insertValue:string;
     selectValue:string;

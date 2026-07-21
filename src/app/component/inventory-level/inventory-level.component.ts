@@ -6,10 +6,12 @@ import { FormBuilder } from '@angular/forms';
 import { InventoryLevelService } from 'src/app/inventory-level.service';
 import swal from 'sweetalert';
 
+
 @Component({
   selector: 'app-inventory-level',
   templateUrl:'./inventory-level.component.html',
   styleUrls: ['./inventory-level.component.scss']
+  
 })
 export class InventoryLevelComponent {
   deleteValue:string;

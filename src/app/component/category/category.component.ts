@@ -16,11 +16,17 @@ export class CategoryComponent {
   editValue: string;
   insertValue: string;
   selectValue: string;
-
+ 
+ 
   updateBtn: boolean = false;
 
   index: any;
   type: string;
+  onCategoryChange(newValue:string):void{
+    if(newValue && newValue.trim()!==""){
+      alert('Alert: cannot pass numbers "${newValue}');
+    }
+  }
   roleName: any;
   allAccess: any;
   moduleId: string;
