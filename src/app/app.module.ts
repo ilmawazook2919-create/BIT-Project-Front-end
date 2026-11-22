@@ -28,6 +28,7 @@ import { PurchaseOrderItemComponent } from './purchase-order-item/purchase-order
 import { PurchaseOrderComponent } from './purchase-order/purchase-order.component';
 import { GoodsReceivedNoteComponent } from './component/goods-received-note/goods-received-note.component';
 import { GrnItemComponent } from './grn-item/grn-item.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 
@@ -60,6 +61,7 @@ import { GrnItemComponent } from './grn-item/grn-item.component';
     HttpClientModule,
     FormsModule,
     NgbModule,
+    NgSelectModule,
     RouterModule,
     ReactiveFormsModule
   ],

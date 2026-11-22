@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import swal from 'sweetalert';
 import { PrivilegeService } from '../component/services/api/privilege/privilege.service';
 import { UserAuthService } from '../component/services/api/user/user-auth.service';
-import { FormBuilder } from '@angular/forms';
-import { PurchaseOrderItemRepresentation } from '../component/services/api/module/purchase-order-item-representation';
 import { PurchaseOrderItemService } from '../purchase-order-item.service';
-import swal from 'sweetalert';
+import { PurchaseOrderService } from '../purchase-order.service';
+import { PartService } from '../part.service';
+import { StatusService } from '../component/services/api/status/status.service';
 
 @Component({
   selector: 'app-purchase-order-item',
@@ -12,139 +15,174 @@ import swal from 'sweetalert';
   styleUrls: ['./purchase-order-item.component.scss']
 })
 export class PurchaseOrderItemComponent {
-   deleteValue:string;
-  editValue:string;
-  insertValue:string;
-  selectValue:string;
+  deleteValue: string;
+  editValue: string;
+  insertValue: string;
+  selectValue: string;
+  updateBtn: boolean = false;
+  saving: boolean = false;
 
-  updateBtn:boolean=false;
-
-  index:any;
-  type:string;
-  roleName:any;
-  allAccess:any;
-  moduleId:string;
+  type: string;
+  roleName: any;
+  moduleId: string;
   PurchaseOrderItems: Array<any> = [];
-  isEditPurchaseOrderItem: boolean = false; 
+  purchaseOrders: Array<any> = [];
+  parts: Array<any> = [];
+  statuses: Array<any> = [];
+  searchText: string = '';
+  isEditPurchaseOrderItem: boolean = false;
   roleNameForPrivilege: Array<any> = [];
-  purchaseOrderItemObj:PurchaseOrderItemRepresentation = {};
-   constructor(
-     private purchaseOrderItemService: PurchaseOrderItemService,
-     private privilegeService: PrivilegeService,
-     private userAuthService: UserAuthService,
-     public fb: FormBuilder) {}
-        ngOnInit(): void {
+  purchaseOrderItemObj: any = {};
+  modalRef: any;
+
+  constructor(
+    private purchaseOrderItemService: PurchaseOrderItemService,
+    private purchaseOrderService: PurchaseOrderService,
+    private partService: PartService,
+    private statusService: StatusService,
+    private privilegeService: PrivilegeService,
+    private userAuthService: UserAuthService,
+    private modalService: NgbModal,
+    public fb: FormBuilder
+  ) {}
+
+  ngOnInit(): void {
     this.isEditPurchaseOrderItem = false;
     this.GetAllPurchaseOrderItem();
+    this.loadLookups();
     this.getprivilegeforComponent();
-
-}
-
-getprivilegeforComponent():void{
-
-  this.roleNameForPrivilege =  this.userAuthService.getRoles();
-
-      if(this.roleNameForPrivilege!=null){
-      for(let i = 0 ; i<this.roleNameForPrivilege.length; i++){
-        this.roleName = this.roleNameForPrivilege[i].roleName;
-        }
   }
 
+  get visibleItems(): Array<any> {
+    const query = (this.searchText || '').toLowerCase();
+    if (!query) {
+      return this.PurchaseOrderItems;
+    }
+    return this.PurchaseOrderItems.filter((row: any) =>
+      (row.purchaseOrderId?.purchaseNumber || '').toLowerCase().includes(query) ||
+      (row.partId?.partName || '').toLowerCase().includes(query)
+    );
+  }
+
+  loadLookups(): void {
+    this.purchaseOrderService.GetAllPurchaseOrders().subscribe(allData => {
+      this.purchaseOrders = allData?.data?.dataList || [];
+    });
+    this.partService.GetAllParts().subscribe(allData => {
+      this.parts = (allData?.data?.dataList || []).map((part: any) => ({
+        ...part,
+        label: part.partNumber ? part.partName + ' (' + part.partNumber + ')' : part.partName
+      }));
+    });
+    this.statusService.GetAllStatus().subscribe(allData => {
+      this.statuses = allData?.data?.dataList || [];
+    });
+  }
+
+  getprivilegeforComponent(): void {
+    this.roleNameForPrivilege = this.userAuthService.getRoles();
+    if (this.roleNameForPrivilege != null) {
+      for (let i = 0; i < this.roleNameForPrivilege.length; i++) {
+        this.roleName = this.roleNameForPrivilege[i].roleName;
+      }
+    }
     this.moduleId = "7";
-    this.privilegeService.GetAllPrivilegeForComponent(this.roleName,this.moduleId).subscribe(allData=>{ 
-    this.allAccess = allData.data.dataList[0];
-    
-    this.deleteValue=allData.data.dataList[0].del;
-    this.editValue=allData.data.dataList[0].upd;
-    this.insertValue=allData.data.dataList[0].ins;
-    this.selectValue=allData.data.dataList[0].sel;
+    this.privilegeService.GetAllPrivilegeForComponent(this.roleName, this.moduleId).subscribe(allData => {
+      this.deleteValue = allData.data.dataList[0].del;
+      this.editValue = allData.data.dataList[0].upd;
+      this.insertValue = allData.data.dataList[0].ins;
+      this.selectValue = allData.data.dataList[0].sel;
+      this.updateBtn = this.editValue == "0";
+    });
+  }
 
-    this.buttonDisable(this.deleteValue,this.editValue,this.insertValue,this.selectValue);
-  })
- 
-}
+  openCreate(content: any): void {
+    this.isEditPurchaseOrderItem = false;
+    this.purchaseOrderItemObj = { quantityOrdered: 1, unitCost: 0 };
+    this.modalRef = this.modalService.open(content, { size: 'lg', backdrop: 'static' });
+  }
 
-buttonDisable(deleteValue:string,editValue:string,insertValue:string,selectValue:string){
-console.log(editValue);
+  openEdit(row: any, content: any): void {
+    this.purchaseOrderItemService.GetPurchaseOrderItemById(row.id).subscribe(allData => {
+      const data = allData.data.dataList[0];
+      this.isEditPurchaseOrderItem = true;
+      this.purchaseOrderItemObj = {
+        id: data.id,
+        purchaseOrderId: data.purchaseOrderId?.id,
+        partId: data.partId?.id,
+        quantityOrdered: data.quantityOrdered,
+        unitCost: data.unitCost,
+        status: data.status?.id,
+        createdBy: data.createdBy
+      };
+      this.modalRef = this.modalService.open(content, { size: 'lg', backdrop: 'static' });
+    });
+  }
 
-    if(editValue=="0"){
-      this.updateBtn=true;
-    }else{
-      this.updateBtn=false;
+  onPartChange(): void {
+    const part = this.parts.find((item: any) => item.id == this.purchaseOrderItemObj.partId);
+    if (part && !this.isEditPurchaseOrderItem) {
+      this.purchaseOrderItemObj.unitCost = part.unitCost || 0;
     }
+  }
 
-}
-
-SavePurchaseOrderItem():void{
-  this.type = this.isEditPurchaseOrderItem==false?'Add':'Update';
-    if(this.type=='Add'){
-      swal({
-        title: "Are you sure?",
-        text: "That you want to Add this details?",
-        icon: "warning",
-        dangerMode: true,
-      })
-      .then(willDelete => {
-        if (willDelete) {
-          this.purchaseOrderItemService.createPurchaseOrderItem(this.purchaseOrderItemObj,this.type)
-          .subscribe({
-            next:(result):void=>{
-              this.GetAllPurchaseOrderItem();  
-            }
-          });
-          swal("Sucessfull!", "PurchaseOrderItem has been Added!", "success");
+  SavePurchaseOrderItem(): void {
+    this.type = this.isEditPurchaseOrderItem == false ? 'Add' : 'Update';
+    const payload = {
+      id: this.purchaseOrderItemObj.id,
+      purchaseOrderId: Number(this.purchaseOrderItemObj.purchaseOrderId),
+      partId: Number(this.purchaseOrderItemObj.partId),
+      quantityOrdered: Number(this.purchaseOrderItemObj.quantityOrdered),
+      unitCost: Number(this.purchaseOrderItemObj.unitCost),
+      status: Number(this.purchaseOrderItemObj.status),
+      createdBy: this.purchaseOrderItemObj.createdBy || 0
+    };
+    swal({
+      title: "Are you sure?",
+      text: this.type == 'Add' ? "That you want to add this item?" : "That you want to update this item?",
+      icon: "warning",
+      dangerMode: true,
+    }).then(willSave => {
+      if (!willSave) {
+        return;
+      }
+      this.saving = true;
+      this.purchaseOrderItemService.createPurchaseOrderItem(payload, this.type).subscribe({
+        next: () => {
+          this.saving = false;
+          if (this.modalRef) {
+            this.modalRef.close();
+          }
+          this.GetAllPurchaseOrderItem();
+          swal("Successful!", this.type == 'Add' ? "Purchase order item has been added." : "Purchase order item has been updated.", "success");
+        },
+        error: (err) => {
+          this.saving = false;
+          swal("Could not save", err?.error?.message || "The item could not be saved.", "error");
         }
-       
       });
-    }else{
-      console.log(this.purchaseOrderItemObj);
-      
-      this.purchaseOrderItemService.createPurchaseOrderItem(this.purchaseOrderItemObj,this.type)
-          .subscribe({
-            next:(result):void=>{
-              this.GetAllPurchaseOrderItem();  
-            }
-          });
-      swal("Sucessfull!", "PurchaseOrderItem has been updated!", "success");
+    });
+  }
 
-  
-    }
+  DeleteById(ID: any) {
+    swal({
+      title: "Are you sure",
+      text: "That you want to delete this purchase order item?",
+      icon: "warning",
+      dangerMode: true,
+    }).then(willDelete => {
+      if (willDelete) {
+        this.purchaseOrderItemService.DeletePurchaseOrderItemById(ID).subscribe(() => {
+          swal("Deleted!", "Purchase order item has been deleted.", "success");
+          this.GetAllPurchaseOrderItem();
+        });
+      }
+    });
+  }
+
+  GetAllPurchaseOrderItem() {
+    this.purchaseOrderItemService.GetAllpurchaseOrderItems().subscribe(allData => {
+      this.PurchaseOrderItems = allData?.data?.dataList || [];
+    });
+  }
 }
-
-GetPurchaseOrderItemById(ID:any){
-  this.purchaseOrderItemService.GetPurchaseOrderItemById(ID).subscribe(allData=>{ 
-    console.log(allData)
-    this.purchaseOrderItemObj = allData.data.dataList[0];
-    this.isEditPurchaseOrderItem= true;
-  })
-}
-
-DeleteById(ID:any){
-  swal({
-    title: "Are you sure",
-    text: "That you want to Delete this PurchaseOrderItem?",
-    icon: "warning",
-    dangerMode: true,
-  })
-  .then(willDelete => {
-    if (willDelete) {
-      swal("Deleted!", "PurchaseOrderItem has been deleted!", "success");
-      this.purchaseOrderItemService.DeletePurchaseOrderItemById(ID).subscribe(allData=>{
-        this.GetAllPurchaseOrderItem();
-      })
-    }
-  });
-}
-
-GetAllPurchaseOrderItem(){
-  this.purchaseOrderItemService.GetAllpurchaseOrderItems().subscribe(allData=>{
-    this.PurchaseOrderItems= allData.data.dataList; 
-  });
-}
-
-}
-
-
-
-
-

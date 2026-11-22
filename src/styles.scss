@@ -3,3 +3,18 @@
 /* Importing Bootstrap SCSS file. */
 // @import 'bootstrap/scss/bootstrap';
 @import url('../node_modules/bootstrap/dist/css/bootstrap.css');
+@import '@ng-select/ng-select/themes/default.theme.css';
+
+.inv-page .btn-add {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+.ng-dropdown-panel {
+  z-index: 2000 !important;
+}
