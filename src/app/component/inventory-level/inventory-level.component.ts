@@ -8,6 +8,7 @@ import { InventoryLevelService } from 'src/app/inventory-level.service';
 import { PartService } from 'src/app/part.service';
 import { BinService } from 'src/app/bin.service';
 import { StatusService } from '../services/api/status/status.service';
+import { ListPage } from 'src/app/list-page';
 
 @Component({
   selector: 'app-inventory-level',
@@ -30,6 +31,7 @@ export class InventoryLevelComponent {
   bins: Array<any> = [];
   statuses: Array<any> = [];
   searchText: string = '';
+  pager = new ListPage();
   isEditInventoryLevel: boolean = false;
   roleNameForPrivilege: Array<any> = [];
   inventoryLevelObj: any = {};

@@ -11,6 +11,7 @@ import { PurchaseOrderItemService } from 'src/app/purchase-order-item.service';
 import { GrnItemService } from 'src/app/grn-item.service';
 import { BinService } from 'src/app/bin.service';
 import { StatusService } from '../services/api/status/status.service';
+import { ListPage } from 'src/app/list-page';
 
 @Component({
   selector: 'app-goods-received-note',
@@ -34,6 +35,7 @@ export class GoodsReceivedNoteComponent {
   statuses: Array<any> = [];
   lines: Array<any> = [];
   searchText: string = '';
+  pager = new ListPage();
   isEditGoodsReceivedNote: boolean = false;
   roleNameForPrivilege: Array<any> = [];
   grnObj: any = {};

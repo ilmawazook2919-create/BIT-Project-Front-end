@@ -8,6 +8,7 @@ import { PurchaseOrderItemService } from '../purchase-order-item.service';
 import { PurchaseOrderService } from '../purchase-order.service';
 import { PartService } from '../part.service';
 import { StatusService } from '../component/services/api/status/status.service';
+import { ListPage } from '../list-page';
 
 @Component({
   selector: 'app-purchase-order-item',
@@ -30,6 +31,7 @@ export class PurchaseOrderItemComponent {
   parts: Array<any> = [];
   statuses: Array<any> = [];
   searchText: string = '';
+  pager = new ListPage();
   isEditPurchaseOrderItem: boolean = false;
   roleNameForPrivilege: Array<any> = [];
   purchaseOrderItemObj: any = {};

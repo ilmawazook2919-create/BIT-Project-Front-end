@@ -9,6 +9,7 @@ import { GoodsReceivedNoteService } from '../goods-received-note.service';
 import { PartService } from '../part.service';
 import { BinService } from '../bin.service';
 import { StatusService } from '../component/services/api/status/status.service';
+import { ListPage } from '../list-page';
 
 @Component({
   selector: 'app-grn-item',
@@ -32,6 +33,7 @@ export class GrnItemComponent {
   bins: Array<any> = [];
   statuses: Array<any> = [];
   searchText: string = '';
+  pager = new ListPage();
   isEditGrnItem: boolean = false;
   roleNameForPrivilege: Array<any> = [];
   grnItemObj: any = {};

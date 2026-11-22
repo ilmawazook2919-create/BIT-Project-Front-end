@@ -1,119 +1,120 @@
-<main class="mt-5 pt-3">
-    <div class="container-fluid">
+<main class="inv-page">
+  <div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div class="fw-bold fs-3">PRIVILEGES</div>
+      <button type="button" class="btn btn-primary btn-add" (click)="openCreate(formModal)" title="New privilege">
+        <i class="bi bi-plus-lg"></i>
+      </button>
+    </div>
 
-      <div class="row">
-        <div class="col-md-12 fw-bold fs-3">
-          PRIVILEGE MANAGEMENT
+    <div class="card text-dark mb-3">
+      <div class="card-header bg-info fw-bold">Privilege list</div>
+      <div class="card-body">
+        <div class="input-group my-3">
+          <input type="text" class="form-control" placeholder="Search privileges" name="searchPrivilege"
+            [ngModel]="pager.searchText" (ngModelChange)="pager.searchText = $event; pager.page = 1">
+          <button class="btn btn-info" type="button"><i class="bi bi-search"></i></button>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered align-middle">
+            <thead>
+              <tr>
+                <th>Module</th>
+                <th>Role</th>
+                <th>Insert</th>
+                <th>Select</th>
+                <th>Update</th>
+                <th>Delete</th>
+                <th class="text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let privilegeObj of pager.rows(privileges)">
+                <td>{{privilegeObj.moduleId?.moduleName}}</td>
+                <td>{{privilegeObj.roleId?.roleName}}</td>
+                <td>{{privilegeObj.ins}}</td>
+                <td>{{privilegeObj.sel}}</td>
+                <td>{{privilegeObj.upd}}</td>
+                <td>{{privilegeObj.del}}</td>
+                <td class="text-center">
+                  <button class="btn btn-warning btn-sm me-1" (click)="openEdit(privilegeObj.id, formModal)">
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
+                  <button class="btn btn-danger btn-sm" (click)="DeleteById(privilegeObj.id)">
+                    <i class="bi bi-archive"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr *ngIf="pager.rows(privileges).length === 0">
+                <td colspan="7" class="text-center text-muted py-4">No privileges yet.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="list-pager">
+          <span>{{pager.showing(privileges)}}</span>
+          <div>
+            <button type="button" class="btn btn-outline-secondary btn-sm me-1" (click)="pager.previous()" [disabled]="pager.page <= 1">Previous</button>
+            <span class="mx-1">{{pager.page}} / {{pager.pageCount(privileges)}}</span>
+            <button type="button" class="btn btn-outline-secondary btn-sm ms-1" (click)="pager.next(privileges)" [disabled]="pager.page >= pager.pageCount(privileges)">Next</button>
+          </div>
         </div>
       </div>
+    </div>
+  </div>
+</main>
 
+<ng-template #formModal let-modal>
+  <form (ngSubmit)="SavePrivilege()">
+    <div class="modal-header">
+      <h5 class="modal-title">{{isEditPrivilege ? 'Update privilege' : 'New privilege'}}</h5>
+      <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
       <div class="row">
-        <div class="col-lg-12 mb-3">
-          <div class="card text-dark mb-3 h-100">
-            <div class="card-header bg-info fw-bold">Course Form</div>
-            <div class="card-body">
-              <form (ngSubmit)="SavePrivilege()">
-
-                <div class="row">
-                    <div class="col-lg-6">
-
-                      
-                      <div class="form-group mt-1">
-                        <label for="roleName">Role Name <span>*</span></label>
-                        <select class="form-control form-select mt-2" id="roleName" name="roleName" aria-label="Default select example"
-                        (change)="onChangeRole($event)" [disabled]="isEnabled" required>
-                        <option disabled selected>{{isEditRole === true ? roleValue : "Select Role"}}</option>
-                        <option  *ngFor="let role of allRoles" [value]="role.roleName">{{role.roleName}}</option>
-                        </select>
-                      </div>
-
-                        <div class="form-group mt-1">
-                            <label for="moduleName">Module Name <span>*</span></label>
-                            <select class="form-control form-select mt-2"
-                            id="moduleName" name="moduleName" aria-label="Default select example"
-                            (change)="onChangeModule($event)" [disabled]="isEnabled" required>
-                            <option disabled selected>{{isEditModule === true ? moduleValue : "Select Module"}}</option>
-                            <option  *ngFor="let module of allModules" [value]="module.id">{{module.moduleName}}</option>
-                            </select>
-                        </div>
-        
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="mx-5 my-4">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" (change)="onChangeSelect($event)" type="checkbox" role="switch" id="selectId">
-                                <label class="form-check-label" for="selectId">Select</label>
-                            </div>
-            
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" (change)="onChangeAdd($event)" type="checkbox" role="switch" id="addID">
-                                <label class="form-check-label" for="addID">Insert</label>
-                            </div>
-            
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" (change)="onChangeUpdate($event)" type="checkbox" role="switch" id="updateId">
-                                <label class="form-check-label" for="updateId">Update</label>
-                            </div>
-            
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" (change)="onChangeDelete($event)" type="checkbox" role="switch" id="deleteId">
-                                <label class="form-check-label" for="deleteId">Delete</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="form-group mt-4">
-                    <div class="text-end ms-auto">
-                      <button class="btn btn-primary"> {{isEditPrivilege == false ? "Add" : "update"}}</button>
-                    </div>
-                </div>
-
-              </form>
+        <div class="col-lg-6">
+          <div class="form-group mt-1">
+            <label for="roleName">Role name <span>*</span></label>
+            <select class="form-control form-select mt-2" id="roleName" name="roleName"
+              (change)="onChangeRole($event)" [disabled]="isEnabled" required>
+              <option disabled selected>{{isEditRole === true ? roleValue : "Select Role"}}</option>
+              <option *ngFor="let role of allRoles" [value]="role.roleName">{{role.roleName}}</option>
+            </select>
+          </div>
+          <div class="form-group mt-1">
+            <label for="moduleName">Module name <span>*</span></label>
+            <select class="form-control form-select mt-2" id="moduleName" name="moduleName"
+              (change)="onChangeModule($event)" [disabled]="isEnabled" required>
+              <option disabled selected>{{isEditModule === true ? moduleValue : "Select Module"}}</option>
+              <option *ngFor="let module of allModules" [value]="module.id">{{module.moduleName}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="mx-lg-4 my-3">
+            <div class="form-check form-switch">
+              <input class="form-check-input" (change)="onChangeSelect($event)" type="checkbox" role="switch" id="selectId">
+              <label class="form-check-label" for="selectId">Select</label>
+            </div>
+            <div class="form-check form-switch">
+              <input class="form-check-input" (change)="onChangeAdd($event)" type="checkbox" role="switch" id="addID">
+              <label class="form-check-label" for="addID">Insert</label>
+            </div>
+            <div class="form-check form-switch">
+              <input class="form-check-input" (change)="onChangeUpdate($event)" type="checkbox" role="switch" id="updateId">
+              <label class="form-check-label" for="updateId">Update</label>
+            </div>
+            <div class="form-check form-switch">
+              <input class="form-check-input" (change)="onChangeDelete($event)" type="checkbox" role="switch" id="deleteId">
+              <label class="form-check-label" for="deleteId">Delete</label>
             </div>
           </div>
-        </div> 
-      </div>
-
-      <div class="row">
-
-        <div class="col-lg-12 mb-3">
-          <div class="card text-dark  mb-3 h-100">
-            <div class="card-header bg-info fw-bold">Privilege Table</div>
-            <div class="card-body">
-                <div class="input-group my-3 ">
-                    <input type="text" class="form-control" placeholder="Serach Course" aria-label="Search" aria-describedby="button-addon2">
-                    <button class="btn btn-info" type="button" id="button-addon2"><i class="bi bi-search"></i></button>
-                  </div>
-              <table class="table table-striped table-bordered table-wrapper">
-                <thead>
-                  <tr>
-                    <th scope="col">Module</th>
-                    <th scope="col">Role</th>
-                    <th scope="col">Insert</th>
-                    <th scope="col">Select</th>
-                    <th scope="col">Update</th>
-                    <th scope="col">Delete</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let privilegeObj of privileges">
-                    <td>{{privilegeObj.moduleId.moduleName}}</td>
-                    <td>{{privilegeObj.roleId.roleName}}</td>
-                    <td>{{privilegeObj.ins}}</td>
-                    <td>{{privilegeObj.sel}}</td>
-                    <td>{{privilegeObj.upd}} </td>
-                    <td>{{privilegeObj.del}}</td>
-                    <td class="text-center">
-                      <button class="btn btn-warning me-1" (click)="GetPrivilegeById(privilegeObj.id)"><i class="bi bi-pencil-square"></i></button>
-                      <button class="btn btn-danger me-1"  (click)="DeleteById(privilegeObj.id)"><i class="bi bi-archive"></i></button>
-                      <button class="btn btn-info"><i class="bi bi-file-earmark"></i></button></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div> 
+        </div>
       </div>
     </div>
-  </main>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.dismiss()">Cancel</button>
+      <button class="btn btn-primary">{{isEditPrivilege ? 'Update' : 'Save'}}</button>
+    </div>
+  </form>
+</ng-template>

@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import swal from 'sweetalert';
 import { PartRepresentation } from '../services/api/module/part-representation';
 import { PartService } from '../../part.service';
 import { PrivilegeService } from '../services/api/privilege/privilege.service';
 import { UserAuthService } from '../services/api/user/user-auth.service';
-import { FormBuilder } from '@angular/forms';
-import swal from 'sweetalert';
+import { ListPage } from '../../list-page';
 
 @Component({
   selector: 'app-part',
@@ -29,10 +31,13 @@ export class PartComponent {
       isEditPart: boolean = false; 
       roleNameForPrivilege: Array<any> = [];
       partObj:PartRepresentation = {};
+      pager = new ListPage();
+      modalRef: any;
         constructor(
         private partService: PartService,
         private privilegeService: PrivilegeService,
         private userAuthService: UserAuthService,
+        private modalService: NgbModal,
         public fb: FormBuilder
       ) {}
       
@@ -93,6 +98,7 @@ SavePart():void{
           this.partService.createPart(this.partObj,this.type)
           .subscribe({
             next:(result):void=>{
+              this.closeForm();
               this.GetAllPart();  
             }
           });
@@ -106,6 +112,7 @@ SavePart():void{
       this.partService.createPart(this.partObj,this.type)
           .subscribe({
             next:(result):void=>{
+              this.closeForm();
               this.GetAllPart();  
             }
           });
@@ -120,6 +127,27 @@ GetPartById(ID:any){
     this.partObj = allData.data.dataList[0];
     this.isEditPart = true;
   })
+}
+
+openCreate(content: any): void {
+  this.isEditPart = false;
+  this.partObj = {};
+  this.modalRef = this.modalService.open(content, { size: 'lg', backdrop: 'static', scrollable: true });
+}
+
+openEdit(ID: any, content: any): void {
+  this.partService.GetPartById(ID).subscribe(allData => {
+    this.partObj = allData.data.dataList[0];
+    this.isEditPart = true;
+    this.modalRef = this.modalService.open(content, { size: 'lg', backdrop: 'static', scrollable: true });
+  });
+}
+
+closeForm(): void {
+  if (this.modalRef) {
+    this.modalRef.close();
+    this.modalRef = null;
+  }
 }
 
 DeleteById(ID:any){

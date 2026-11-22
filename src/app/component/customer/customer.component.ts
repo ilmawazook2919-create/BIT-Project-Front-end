@@ -2,9 +2,11 @@ import { Component } from '@angular/core';
 import { PrivilegeService } from '../services/api/privilege/privilege.service';
 import { UserAuthService } from '../services/api/user/user-auth.service';
 import { FormBuilder } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CustomerService } from '../../customer.service';
 import { CustomerRepresentation } from '../services/api/module/customer-representation';
 import swal from 'sweetalert';
+import { ListPage } from '../../list-page';
 
 @Component({
   selector: 'app-customer',
@@ -28,10 +30,13 @@ export class CustomerComponent {
       isEditCustomer: boolean = false; 
       roleNameForPrivilege: Array<any> = [];
       customerObj:CustomerRepresentation = {};
+      pager = new ListPage();
+      modalRef: any;
         constructor(
         private customerService: CustomerService,
         private privilegeService: PrivilegeService,
         private userAuthService: UserAuthService,
+        private modalService: NgbModal,
         public fb: FormBuilder
       ) {}
         ngOnInit(): void {
@@ -91,6 +96,7 @@ SaveCustomer():void{
           this.customerService.createCustomer(this.customerObj,this.type)
           .subscribe({
             next:(result):void=>{
+              this.closeForm();
               this.GetAllCustomer();  
             }
           });
@@ -104,6 +110,7 @@ SaveCustomer():void{
       this.customerService.createCustomer(this.customerObj,this.type)
           .subscribe({
             next:(result):void=>{
+              this.closeForm();
               this.GetAllCustomer();  
             }
           });
@@ -118,6 +125,27 @@ GetCustomerById(ID:any){
     this.customerObj = allData.data.dataList[0];
     this.isEditCustomer = true;
   })
+}
+
+openCreate(content: any): void {
+  this.isEditCustomer = false;
+  this.customerObj = {};
+  this.modalRef = this.modalService.open(content, { size: 'lg', backdrop: 'static', scrollable: true });
+}
+
+openEdit(ID: any, content: any): void {
+  this.customerService.GetCustomerById(ID).subscribe(allData => {
+    this.customerObj = allData.data.dataList[0];
+    this.isEditCustomer = true;
+    this.modalRef = this.modalService.open(content, { size: 'lg', backdrop: 'static', scrollable: true });
+  });
+}
+
+closeForm(): void {
+  if (this.modalRef) {
+    this.modalRef.close();
+    this.modalRef = null;
+  }
 }
 
 DeleteById(ID:any){

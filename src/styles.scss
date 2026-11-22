@@ -90,6 +90,23 @@ body.app-shell {
   border-right: 0;
   top: var(--topbar);
   height: calc(100vh - var(--topbar));
+  overflow: hidden !important;
+}
+
+.app-sidebar .offcanvas-body {
+  height: 100%;
+  max-height: calc(100vh - var(--topbar));
+  overflow-y: auto !important;
+  overflow-x: hidden;
+}
+
+.app-sidebar .offcanvas-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.app-sidebar .offcanvas-body::-webkit-scrollbar-thumb {
+  background: #3d6b45;
+  border-radius: 8px;
 }
 
 .side-nav {
@@ -303,6 +320,28 @@ body.app-shell {
 .ng-select.ng-select-focused .ng-select-container {
   border-color: var(--green);
   box-shadow: 0 0 0 0.2rem rgba(47, 107, 44, 0.15);
+}
+
+.list-pager {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.9rem;
+  color: #3d5344;
+  font-size: 0.86rem;
+}
+
+.modal {
+  z-index: 2000;
+}
+
+.modal-backdrop {
+  z-index: 1990;
+}
+
+.modal-dialog {
+  margin-top: 4.75rem;
 }
 
 .ng-dropdown-panel {

@@ -4,6 +4,7 @@ import { CourseService } from '../services/api/course/course.service';
 import { QualificationService } from '../services/api/qualification/qualification.service';
 import { TeacherRepresentation } from '../services/api/module/teacher-representation';
 import swal from 'sweetalert';
+import { ListPage } from 'src/app/list-page';
 
 @Component({
   selector: 'app-teacher',
@@ -14,6 +15,7 @@ export class TeacherComponent {
 
   teacherObj:TeacherRepresentation = {};
   teachers: Array<any> = [];
+  pager = new ListPage();
 
   type:string;
   allCourse:any;

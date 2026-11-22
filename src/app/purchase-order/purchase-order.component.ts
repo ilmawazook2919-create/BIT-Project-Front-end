@@ -10,6 +10,7 @@ import { PurchaseOrderItemService } from '../purchase-order-item.service';
 import { SupplierService } from '../supplier.service';
 import { PartService } from '../part.service';
 import { StatusService } from '../component/services/api/status/status.service';
+import { ListPage } from '../list-page';
 
 @Component({
   selector: 'app-purchase-order',
@@ -33,6 +34,7 @@ export class PurchaseOrderComponent {
   statuses: Array<any> = [];
   lines: Array<any> = [];
   searchText: string = '';
+  pager = new ListPage();
   isEditPurchaseOrder: boolean = false;
   roleNameForPrivilege: Array<any> = [];
   purchaseOrderObj: any = {};

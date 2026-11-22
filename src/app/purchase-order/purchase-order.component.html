@@ -13,7 +13,7 @@
       <div class="card-body">
         <div class="input-group my-3">
           <input type="text" class="form-control" placeholder="Search by number, supplier, or status"
-            [(ngModel)]="searchText" name="searchPurchaseOrder">
+            [(ngModel)]="searchText" (ngModelChange)="pager.page = 1" name="searchPurchaseOrder">
           <button class="btn btn-info" type="button"><i class="bi bi-search"></i></button>
         </div>
 
@@ -31,7 +31,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let row of visibleOrders">
+              <tr *ngFor="let row of pager.rows(visibleOrders)">
                 <td>{{row.purchaseNumber}}</td>
                 <td>{{row.supplierId?.supplierName}}</td>
                 <td>{{row.orderDate | date:'yyyy-MM-dd'}}</td>
@@ -52,6 +52,14 @@
               </tr>
             </tbody>
           </table>
+        </div>
+        <div class="list-pager">
+          <span>{{pager.showing(visibleOrders)}}</span>
+          <div>
+            <button type="button" class="btn btn-outline-secondary btn-sm me-1" (click)="pager.previous()" [disabled]="pager.page <= 1">Previous</button>
+            <span class="mx-1">{{pager.page}} / {{pager.pageCount(visibleOrders)}}</span>
+            <button type="button" class="btn btn-outline-secondary btn-sm ms-1" (click)="pager.next(visibleOrders)" [disabled]="pager.page >= pager.pageCount(visibleOrders)">Next</button>
+          </div>
         </div>
       </div>
     </div>
