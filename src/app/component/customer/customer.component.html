@@ -11,8 +11,10 @@
     <!-- Customer Form Card -->
     <div class="row">
       <div class="col-lg-12 mb-3">
-        <div class="card text-dark mb-3 h-100">
-          <div class="card-header bg-info fw-bold">Customer Form</div>
+        <div class="card shadow-sm text-dark mb-3 h-100 border-0">
+          <div class="card-header text-white fw-bold py-3" style="background-color: #557A8E;">
+            <i class="bi bi-ui-checks me-2"></i>Customer Form
+          </div>
           <div class="card-body">
             <form (ngSubmit)="SaveCustomer()">
 
@@ -59,8 +61,8 @@
                 <select class="form-control mt-2" id="status" [(ngModel)]="customerObj.status" name="status">
                   <!-- Note: Adjust value binding depending on how your StatusDto is populated in TS -->
                   <option [ngValue]="null" disabled>Select Status</option>
-                  <option value="ACTIVE">Active</option>
-                  <option value="INACTIVE">Inactive</option>
+                  <option value="1">Active</option>
+                  <option value="2">Inactive</option>
                 </select>
               </div>
 
@@ -83,7 +85,7 @@
     <div class="row">
       <div class="col-lg-12 mb-3">
         <div class="card text-dark mb-3 h-100">
-          <div class="card-header bg-info fw-bold">Customer Table</div>
+          <div class="card-header bg-dark text-white fw-bold border-secondary">Customer  Table</div>
           <div class="card-body">
             
             <!-- Search Bar -->

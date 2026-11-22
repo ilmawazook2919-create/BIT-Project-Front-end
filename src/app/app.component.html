@@ -10,7 +10,7 @@
       </button>
 
       <a class="navbar-brand fw-bold tech-logo" href="#">
-        <i class="bi bi-cpu-fill text-warning me-2"></i>SMART SPARE SYSTEM <span class="text-muted small">v2.0</span>
+        <i class="bi bi-cpu-fill text-warning me-2"></i>SMART SPARE SYSTEM <span class="text-muted small"></span>
       </a>
       
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -29,7 +29,7 @@
               <i class="bi bi-person-bounding-box text-cyan"></i>
             </a>
             <ul class="dropdown-menu dropdown-menu-end industrial-dropdown" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#"><i class="bi bi-person-badge me-2"></i>USER_PROFILE</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-person-badge me-2"></i>USER PROFILE</a></li>
               <li><a class="dropdown-item" href="#"><i class="bi bi-sliders me-2"></i>SETTINGS</a></li>
               <li><hr class="dropdown-divider border-secondary"></li>
               <li>
@@ -56,7 +56,7 @@
     <div class="offcanvas-body p-0 mt-3">
       <nav class="navbar-dark">
         <ul class="navbar-nav">
-          <li><div class="sidebar-heading px-3">CORE_SYSTEM</div></li>
+          <li><div class="sidebar-heading px-3">CORE SYSTEM</div></li>
           <li>
             <a routerLink="/dashboard" class="nav-link px-3 active">
               <span class="me-2"><i class="bi bi-speedometer2"></i></span>
@@ -67,13 +67,13 @@
           <li class="my-3"><hr class="border-secondary mx-3"></li>
 
           <li>
-            <div class="sidebar-heading px-3">DATA_MANAGEMENT</div>
+            <div class="sidebar-heading px-3">DATA MANAGEMENT</div>
           </li>
 
           <li>
             <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#collapseExample">
               <span class="me-2"><i class="bi bi-layers-half"></i></span>
-              <span>INVENTORY_CONTROL</span>
+              <span>INVENTORY CONTROL</span>
               <span class="right-icon ms-auto"><i class="bi bi-chevron-down small"></i></span>
             </a>
             <div class="collapse" id="collapseExample">
@@ -81,16 +81,19 @@
                 
                 
                 <li><a routerLink="/part" class="nav-link px-4 text-warning">PARTS</a></li>
+                <li><a routerLink="/bin" class="nav-link px-4">BIN</a></li>
+                 <li><a routerLink="/customer" class="nav-link px-4 text-warning">CUSTOMER</a></li>
+                  <li><a routerLink="/warehouse" class="nav-link px-4 text-warning">WAREHOUSE</a></li>
                  <li><a routerLink="/category" class="nav-link px-4 text-warning">CATEGORY</a></li>
                  <li><a routerLink="/inventoryLevel" class="nav-link px-4 text-warning">INVENTORY LEVEL</a></li>
-                 <li><a routerLink="/warehouse" class="nav-link px-4 text-warning">WAREHOUSE</a></li>
-                 <li><a routerLink="/purchaseOrderItem" class="nav-link px-4 text-warning">PURCHASEORDER ITEM</a></li>
+                 <li><a routerLink="/purchaseOrderItem" class="nav-link px-4 text-warning">PURCHASE ORDER ITEM</a></li>
                  <li><a routerLink="/purchaseOrder" class="nav-link px-4 text-warning">PURCHASE ORDER</a></li>
                  <li><a routerLink="/goodsReceivedNote" class="nav-link px-4 text-warning">GOODS RECEIVED NOTE</a></li>
                  <li><a routerLink="/supplier" class="nav-link px-4 text-warning">SUPPLIER</a></li>
                  <li><a routerLink="/customer" class="nav-link px-4 text-warning">CUSTOMER</a></li>
                  <li><a routerLink="/grnItem" class="nav-link px-4 text-warning">GRNITEM</a></li>
-                 <li><a routerLink="/bin" class="nav-link px-4">BIN</a></li>
+                 <li><a routerLink="/salesOrder" class="nav-link px-4 text-warning">SALES ORDER</a></li>
+                 <li><a routerLink="/salesOrderItem" class="nav-link px-4 text-warning">SALES ORDER ITEM</a></li>
               </ul>
             </div>
           </li>
@@ -98,7 +101,7 @@
           <li class="my-3"><hr class="border-secondary mx-3"></li>
 
           <li>
-            <div class="sidebar-heading px-3">ADMIN_PANEL</div>
+            <div class="sidebar-heading px-3">ADMINS</div>
           </li>
 
           <li>
@@ -109,11 +112,7 @@
             </a>
             <div class="collapse" id="collapseAdmin">
               <ul class="navbar-nav ps-3">
-                <li><a routerLink="/user" class="nav-link px-4">USER ACCESS</a></li>
                 <li><a routerLink="/privilege" class="nav-link px-4">PRIVILEGE</a></li>
-                <li><a routerLink="/setting" class="nav-link px-4">SETTINGS</a></li>
-                <li><a routerLink="/tools" class="nav-link px-4">TOOLS</a></li>
-                <li><a routerLink="/media" class="nav-link px-4">MEDIA</a></li>
               </ul>
             </div>
           </li>

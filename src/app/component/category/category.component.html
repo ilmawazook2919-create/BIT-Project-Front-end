@@ -1,4 +1,3 @@
-```html
 <main class="mt-5 pt-3">
   <div class="container-fluid">
 
@@ -12,8 +11,10 @@
     <!-- Form -->
     <div class="row">
       <div class="col-lg-12 mb-3">
-        <div class="card text-dark mb-3 h-100">
-          <div class="card-header bg-info fw-bold">Category Form</div>
+        <div class="card shadow-sm text-dark mb-3 h-100 border-0">
+          <div class="card-header text-white fw-bold py-3" style="background-color: #557A8E;">
+            <i class="bi bi-ui-checks me-2"></i>Category Form
+          </div>
           <div class="card-body">
             <form (ngSubmit)="SaveCategory()">
 
@@ -23,26 +24,21 @@
                 <input type="text" class="form-control mt-2" id="categoryName" name="categoryName"
                   [(ngModel)]="categoryObj.categoryName" required placeholder="Enter Category Name">
               </div>
-             
 
               <!-- Category Description -->
               <div class="form-group mt-3">
                 <label>Category Description</label>
-                <input type="text"
-                       class="form-control mt-2"   [(ngModel)]="categoryObj.categoryDescription"
-                       name="categoryDescription"   placeholder="Enter Category Description">
+                <input type="text" class="form-control mt-2" [(ngModel)]="categoryObj.categoryDescription"
+                  name="categoryDescription" placeholder="Enter Category Description">
               </div>
 
+              <!-- Status (Fixed to send an object structure matching backend/Postman) -->
               <!-- Status -->
               <div class="form-group mt-3">
                 <label>Status</label>
-                <select class="form-control mt-2"
-                        [(ngModel)]="categoryObj.status"
-                        name="status">
-
-                  <option [ngValue]="{name:'ACTIVE'}">Active</option>
-                  <option [ngValue]="{name:'INACTIVE'}">Inactive</option>
-
+                <select class="form-control mt-2" [(ngModel)]="categoryObj.status" name="status">
+                  <option value="1">Active</option>
+                  <option value="2">Inactive</option>
                 </select>
               </div>
 
@@ -63,21 +59,14 @@
 
     <!-- Table -->
     <div class="row">
-
       <div class="col-lg-12 mb-3">
         <div class="card text-dark mb-3 h-100">
-
-          <div class="card-header bg-info fw-bold">
-            Category Table
-          </div>
-
+          <div class="card-header bg-dark text-white fw-bold border-secondary">Category Table</div>
           <div class="card-body">
 
             <!-- Search -->
             <div class="input-group my-3">
-              <input type="text"
-                     class="form-control"
-                     placeholder="Search Category">
+              <input type="text" class="form-control" placeholder="Search Category">
 
               <button class="btn btn-info" type="button">
                 <i class="bi bi-search"></i>
@@ -85,8 +74,7 @@
             </div>
 
             <!-- Table -->
-            <table id="categoryTableId"
-                   class="table table-striped table-bordered table-wrapper">
+            <table id="categoryTableId" class="table table-striped table-bordered table-wrapper">
 
               <thead>
                 <tr>
@@ -103,6 +91,7 @@
               </thead>
 
               <tbody>
+                <!-- Changed loop variable from categoryObj to cat to prevent shadowing -->
                 <tr *ngFor="let categoryObj of categories">
 
                   <td>{{categoryObj.id}}</td>
@@ -112,20 +101,18 @@
                   <td>{{categoryObj.categoryCreatedDate}}</td>
                   <td>{{categoryObj.categoryModifiedBy}}</td>
                   <td>{{categoryObj.categoryModifiedDate}}</td>
-                  <td>{{categoryObj.status.name}}</td>
+                  <td>{{categoryObj.status?.name || categoryObj.status?.id}}</td>
 
                   <td class="text-center">
-
+                    <div class="d-flex justify-content-center"></div>
                     <!-- Edit -->
-                    <button class="btn btn-warning me-1"
-                            [disabled]="updateBtn"
-                            (click)="GetCategoryById(categoryObj.id)">
+                    <button class="btn btn-warning me-1" [disabled]="updateBtn"
+                      (click)="GetCategoryById(categoryObj.id)">
                       <i class="bi bi-pencil-square"></i>
                     </button>
 
                     <!-- Delete -->
-                    <button class="btn btn-danger me-1"
-                            (click)="DeleteCategoryById(categoryObj.id)">
+                    <button class="btn btn-danger me-1" (click)="DeleteCategoryById(categoryObj.id)">
                       <i class="bi bi-archive"></i>
                     </button>
 
@@ -148,5 +135,3 @@
     </div>
   </div>
 </main>
-
-

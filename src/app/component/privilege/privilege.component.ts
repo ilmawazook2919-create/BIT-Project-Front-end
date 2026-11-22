@@ -200,7 +200,7 @@ SavePrivilege(){
                
             }
           });
-          swal("Sucessfull!", "Student has been Adedd!", "success");
+          swal("Sucessfull!", "part has been Adedd!", "success");
         }
        
       });

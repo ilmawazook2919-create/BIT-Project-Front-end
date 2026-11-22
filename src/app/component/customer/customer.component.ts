@@ -42,28 +42,30 @@ export class CustomerComponent {
 
 }
 
-getprivilegeforComponent():void{
+getprivilegeforComponent(): void {
+  this.roleNameForPrivilege = this.userAuthService.getRoles();
 
-  this.roleNameForPrivilege =  this.userAuthService.getRoles();
-
-      if(this.roleNameForPrivilege!=null){
-      for(let i = 0 ; i<this.roleNameForPrivilege.length; i++){
-        this.roleName = this.roleNameForPrivilege[i].roleName;
-        }
+  if (this.roleNameForPrivilege != null) {
+    for (let i = 0; i < this.roleNameForPrivilege.length; i++) {
+      this.roleName = this.roleNameForPrivilege[i].roleName;
+    }
   }
 
-    this.moduleId = "2";
-    this.privilegeService.GetAllPrivilegeForComponent(this.roleName,this.moduleId).subscribe(allData=>{ 
-    this.allAccess = allData.data.dataList[0];
-    
-    this.deleteValue=allData.data.dataList[0].del;
-    this.editValue=allData.data.dataList[0].upd;
-    this.insertValue=allData.data.dataList[0].ins;
-    this.selectValue=allData.data.dataList[0].sel;
+  this.moduleId = "2";
+  this.privilegeService.GetAllPrivilegeForComponent(this.roleName, this.moduleId).subscribe(allData => {
+    // Safely check if dataList exists and has items
+    const privilegeItem = allData?.data?.dataList?.[0];
 
-    this.buttonDisable(this.deleteValue,this.editValue,this.insertValue,this.selectValue);
-  })
- 
+    if (privilegeItem) {
+      this.allAccess = privilegeItem;
+      this.deleteValue = privilegeItem.del;
+      this.editValue = privilegeItem.upd;
+      this.insertValue = privilegeItem.ins;
+      this.selectValue = privilegeItem.sel;
+
+      this.buttonDisable(this.deleteValue, this.editValue, this.insertValue, this.selectValue);
+    }
+  });
 }
 
 buttonDisable(deleteValue:string,editValue:string,insertValue:string,selectValue:string){

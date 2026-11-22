@@ -9,6 +9,8 @@ export interface PartRepresentation {
     unitCost?: string,
     sellingPrice?: string,
     weight?: Float32Array,
+    quantity?:string,
+    priorityLevel?:string,
     dimensions?: BigInteger,
     isActive?: boolean,
     createdBy?: string,

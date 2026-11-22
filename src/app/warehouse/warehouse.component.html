@@ -12,7 +12,7 @@
     <div class="row">
       <div class="col-lg-12 mb-3">
         <div class="card text-dark mb-3 h-100">
-          <div class="card-header bg-info fw-bold">Warehouse Form</div>
+          <div class="card-header bg-dark text-white fw-bold border-secondary">WarehouseForm</div>
           <div class="card-body">
             <form (ngSubmit)="SaveWarehouse()">
 
@@ -44,8 +44,8 @@
                 <label for="status">System Status</label>
                 <select class="form-control mt-2" id="status" [(ngModel)]="warehouseObj.status" name="status">
                   <option [ngValue]="null" disabled>Select Status</option>
-                  <option value="ACTIVE">Active</option>
-                  <option value="INACTIVE">Inactive</option>
+                  <option value="1">Active</option>
+                  <option value="2">Inactive</option>
                 </select>
               </div>
 
@@ -68,7 +68,7 @@
     <div class="row">
       <div class="col-lg-12 mb-3">
         <div class="card text-dark mb-3 h-100">
-          <div class="card-header bg-info fw-bold">Warehouse Table</div>
+         <div class="card-header bg-dark text-white fw-bold border-secondary">Warehouse Table</div>
           <div class="card-body">
             
             <!-- Search Bar -->
@@ -110,7 +110,7 @@
                     <td>{{warehouseObj.warehouseCreatedDate | date:'mediumDate'}}</td>
                     <td>{{warehouseObj.warehouseModifiedBy}}</td>
                     <td>{{warehouseObj.warehouseModifiedDate | date:'mediumDate'}}</td>
-                    <td>{{warehouseObj.status?.name}}</td>
+                    <td>{{warehouseObj.status.name}}</td>
                     <td class="text-center">
                       <div class="d-flex justify-content-center">
                         <button class="btn btn-warning btn-sm me-1" [disabled]="updateBtn" (click)="GetWarehouseById(warehouseObj.id)">

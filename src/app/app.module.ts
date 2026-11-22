@@ -4,14 +4,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { StudentComponent } from './component/student/student.component';
-import { CourseComponent } from './component/course/course.component';
-import { TeacherComponent } from './component/teacher/teacher.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
-import { ClassComponent } from './component/class/class.component';
 import { ForbiddenComponent } from './component/forbidden/forbidden.component';
 import { AuthGuard } from './component/auth/auth.guard';
 import { AuthInterceptor } from './component/auth/auth.interceptor';
@@ -28,17 +24,15 @@ import { PurchaseOrderItemComponent } from './purchase-order-item/purchase-order
 import { PurchaseOrderComponent } from './purchase-order/purchase-order.component';
 import { GoodsReceivedNoteComponent } from './component/goods-received-note/goods-received-note.component';
 import { GrnItemComponent } from './grn-item/grn-item.component';
+import { SalesOrderComponent } from './sales-order/sales-order.component';
+import { SalesOrderItemComponent } from './sales-order-item/sales-order-item.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    StudentComponent,
-    CourseComponent,
-    TeacherComponent,
     DashboardComponent,
-    ClassComponent,
     ForbiddenComponent,
     InstituteLoginComponent,
     PrivilegeComponent,
@@ -52,7 +46,9 @@ import { GrnItemComponent } from './grn-item/grn-item.component';
     PurchaseOrderItemComponent,
     PurchaseOrderComponent,
     GoodsReceivedNoteComponent,
-    GrnItemComponent
+    GrnItemComponent,
+    SalesOrderComponent,
+    SalesOrderItemComponent
   ],
   imports: [
     BrowserModule,

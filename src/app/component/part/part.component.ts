@@ -36,7 +36,7 @@ export class PartComponent {
         public fb: FormBuilder
       ) {}
       
-        ngOnInit(): void {
+    ngOnInit(): void {
     this.isEditPart = false;
     this.GetAllPart();
     this.getprivilegeforComponent();
@@ -44,29 +44,59 @@ export class PartComponent {
 
 }
 
-getprivilegeforComponent():void{
+getprivilegeforComponent(): void {
 
-  this.roleNameForPrivilege =  this.userAuthService.getRoles();
+  this.roleNameForPrivilege = this.userAuthService.getRoles();
 
-      if(this.roleNameForPrivilege!=null){
-      for(let i = 0 ; i<this.roleNameForPrivilege.length; i++){
-        this.roleName = this.roleNameForPrivilege[i].roleName;
-        }
+  if (this.roleNameForPrivilege != null) {
+    for (let i = 0; i < this.roleNameForPrivilege.length; i++) {
+      this.roleName = this.roleNameForPrivilege[i].roleName;
+    }
   }
 
-    this.moduleId = "2";
-    this.privilegeService.GetAllPrivilegeForComponent(this.roleName,this.moduleId).subscribe(allData=>{ 
-    this.allAccess = allData.data.dataList[0];
-    
-    this.deleteValue=allData.data.dataList[0].del;
-    this.editValue=allData.data.dataList[0].upd;
-    this.insertValue=allData.data.dataList[0].ins;
-    this.selectValue=allData.data.dataList[0].sel;
+  this.moduleId = "1";
 
-    this.buttonDisable(this.deleteValue,this.editValue,this.insertValue,this.selectValue);
-  })
- 
+  this.privilegeService
+    .GetAllPrivilegeForComponent(this.roleName, this.moduleId)
+    .subscribe({
+      next: (allData) => {
+
+        console.log("Privilege Response:", allData);
+
+        if (
+          allData &&
+          allData.data &&
+          allData.data.dataList &&
+          allData.data.dataList.length > 0
+        ) 
+      {
+
+          this.allAccess = allData.data.dataList[0];
+
+          this.deleteValue = this.allAccess.del;
+          this.editValue = this.allAccess.upd;
+          this.insertValue = this.allAccess.ins;
+          this.selectValue = this.allAccess.sel;
+
+          this.buttonDisable(
+            this.deleteValue,
+            this.editValue,
+            this.insertValue,
+            this.selectValue
+          );
+
+        } else {
+          console.log("No privilege data found.");
+        }
+
+      },
+      error: (err) => {
+        console.error("Privilege API Error:", err);
+      }
+    });
+
 }
+
 
 buttonDisable(deleteValue:string,editValue:string,insertValue:string,selectValue:string){
 console.log(editValue);
@@ -80,6 +110,7 @@ console.log(editValue);
 }
 
 SavePart():void{
+  this.partObj={...this.partObj};
   this.type = this.isEditPart==false?'Add':'Update';
     if(this.type=='Add'){
       swal({
@@ -87,6 +118,7 @@ SavePart():void{
         text: "That you want to Add this details?",
         icon: "warning",
         dangerMode: true,
+        
       })
       .then(willDelete => {
         if (willDelete) {
@@ -118,7 +150,7 @@ SavePart():void{
 GetPartById(ID:any){
   this.partService.GetPartById(ID).subscribe(allData=>{ 
     this.partObj = allData.data.dataList[0];
-    this.isEditPart = true;
+     console .log ("Parts by Id Array:",this.partObj);
   })
 }
 
@@ -145,6 +177,7 @@ DeleteById(ID:any){
       .subscribe(allData => {
 
         this.parts = allData.data.dataList;
+        console.log("All Parts Array:", this.parts);
       
       });
 
@@ -153,7 +186,17 @@ DeleteById(ID:any){
 }
 
 
+//this.partService.getAllParts().subscribe((response:any) => {
 
+ // this.parts = response.data.dataList;
+
+ // const inactiveParts = this.parts.filter(
+   // part => part.status === "INACTIVE"
+  //);
+
+  //console.log(inactiveParts);
+
+//});
 
 
 

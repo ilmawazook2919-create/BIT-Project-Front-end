@@ -1,10 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { StudentComponent } from './component/student/student.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
-import { CourseComponent } from './component/course/course.component';
-import { TeacherComponent } from './component/teacher/teacher.component';
-import { ClassComponent } from './component/class/class.component';
 import { InstituteLoginComponent } from './component/institute-login/institute-login.component';
 import { ForbiddenComponent } from './component/forbidden/forbidden.component';
 import { AuthGuard } from './component/auth/auth.guard';
@@ -20,20 +16,14 @@ import { PurchaseOrderComponent } from './purchase-order/purchase-order.componen
 import { PurchaseOrderItemComponent } from './purchase-order-item/purchase-order-item.component';
 import { GoodsReceivedNoteComponent } from './component/goods-received-note/goods-received-note.component';
 import { GrnItemComponent } from './grn-item/grn-item.component';
+import { SalesOrderComponent } from './sales-order/sales-order.component';
+import { SalesOrderItemComponent } from './sales-order-item/sales-order-item.component';
 
 
 
 const routes: Routes = [
   
   {path : 'dashboard',component : DashboardComponent,canActivate:[AuthGuard], data:{roles:['admin','user']}},
-
-  {path : 'student',component : StudentComponent,canActivate:[AuthGuard], data:{roles:['admin']}},
-
-  {path : 'course',component : CourseComponent,canActivate:[AuthGuard], data:{roles:['admin']}},
-
-  {path : 'teacher',component : TeacherComponent,canActivate:[AuthGuard], data:{roles:['admin']}},
-
-  {path : 'class',component : ClassComponent, canActivate:[AuthGuard], data:{roles:['admin']}},
 
   {path : 'login',component : InstituteLoginComponent},
 
@@ -62,7 +52,10 @@ const routes: Routes = [
   {path : 'goodsReceivedNote',component : GoodsReceivedNoteComponent,canActivate:[AuthGuard], data:{roles:['admin']}},
   
   {path : 'grnItem',component : GrnItemComponent,canActivate:[AuthGuard], data:{roles:['admin']}},
-  
+
+   {path : 'salesOrder',component : SalesOrderComponent,canActivate:[AuthGuard], data:{roles:['admin']}},
+
+   {path : 'salesOrderItem',component : SalesOrderItemComponent,canActivate:[AuthGuard], data:{roles:['admin']}},
 ];
 
 @NgModule({

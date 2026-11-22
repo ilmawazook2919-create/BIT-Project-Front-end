@@ -53,7 +53,7 @@ getprivilegeforComponent():void{
         }
   }
 
-    this.moduleId = "2";
+    this.moduleId = "9";
     this.privilegeService.GetAllPrivilegeForComponent(this.roleName,this.moduleId).subscribe(allData=>{ 
     this.allAccess = allData.data.dataList[0];
     

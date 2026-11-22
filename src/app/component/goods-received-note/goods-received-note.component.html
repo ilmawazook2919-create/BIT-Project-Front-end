@@ -9,8 +9,10 @@
 
     <div class="row">
       <div class="col-lg-12 mb-3">
-        <div class="card text-dark mb-3 h-100">
-          <div class="card-header bg-info fw-bold">GRN Form</div>
+        <div class="card shadow-sm text-dark mb-3 h-100 border-0">
+          <div class="card-header text-white fw-bold py-3" style="background-color: #557A8E;">
+            <i class="bi bi-ui-checks me-2"></i>GRN Form
+          </div>
           <div class="card-body">
             <form (ngSubmit)="SaveGoodsReceivedNote()">
 
@@ -39,9 +41,9 @@
                   <label for="status">System Status</label>
                   <select class="form-control mt-2" id="status" [(ngModel)]="grnObj.status" name="status">
                     <option [ngValue]="null" disabled>Select Status</option>
-                    <option value="PENDING">Pending</option>
-                    <option value="COMPLETED">Completed</option>
-                    <option value="CANCELLED">Cancelled</option>
+                    <option value="1">Pending</option>
+                    <option value="2">Completed</option>
+                    <option value="3">Cancelled</option>
                   </select>
                 </div>
               </div>
@@ -63,7 +65,7 @@
     <div class="row">
       <div class="col-lg-12 mb-3">
         <div class="card text-dark mb-3 h-100">
-          <div class="card-header bg-info fw-bold">GRN Table</div>
+          <div class="card-header bg-dark text-white fw-bold border-secondary">GRN Table</div>
           <div class="card-body">
 
             <div class="input-group my-3">

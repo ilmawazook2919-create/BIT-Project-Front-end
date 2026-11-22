@@ -54,7 +54,7 @@ getprivilegeforComponent():void{
         }
   }
 
-    this.moduleId = "2";
+    this.moduleId = "3";
     this.privilegeService.GetAllPrivilegeForComponent(this.roleName,this.moduleId).subscribe(allData=>{ 
     this.allAccess = allData.data.dataList[0];
     
@@ -150,6 +150,7 @@ GetAllSupplier(){
   });
  
 }
+
 
 }
 

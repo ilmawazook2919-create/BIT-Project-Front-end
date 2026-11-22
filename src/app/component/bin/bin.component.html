@@ -11,16 +11,18 @@
     <!-- Bin Form Card -->
     <div class="row">
       <div class="col-lg-12 mb-3">
-        <div class="card text-dark mb-3 h-100">
-          <div class="card-header bg-info fw-bold">Bin Form</div>
+        <div class="card shadow-sm text-dark mb-3 h-100 border-0">
+          <div class="card-header text-white fw-bold py-3" style="background-color: #557A8E;">
+            <i class="bi bi-ui-checks me-2"></i>Bin Form
+          </div>
           <div class="card-body">
             <form (ngSubmit)="SaveBin()">
 
               <!-- Bin Code -->
               <div class="form-group">
                 <label for="binCode">Bin Code</label>
-                <input type="text" class="form-control mt-2" id="binCode" name="binCode"
-                  [(ngModel)]="binObj.binCode" required placeholder="Enter Bin Code">
+                <input type="text" class="form-control mt-2" id="binCode" name="binCode" [(ngModel)]="binObj.binCode"
+                  required placeholder="Enter Bin Code">
               </div>
 
               <!-- Bin Description -->
@@ -35,8 +37,8 @@
                 <label for="status">System Status</label>
                 <select class="form-control mt-2" id="status" [(ngModel)]="binObj.status" name="status">
                   <option [ngValue]="null" disabled>Select Status</option>
-                  <option value="ACTIVE">Active</option>
-                  <option value="INACTIVE">Inactive</option>
+                  <option value="1">Active</option>
+                  <option value="2">Inactive</option>
                 </select>
               </div>
 
@@ -59,7 +61,7 @@
     <div class="row">
       <div class="col-lg-12 mb-3">
         <div class="card text-dark mb-3 h-100">
-          <div class="card-header bg-info fw-bold">Bin Table</div>
+          <div class="card-header bg-dark text-white fw-bold border-secondary">Bin Table</div>
           <div class="card-body">
 
             <!-- Search Bar -->
@@ -98,14 +100,12 @@
                     <td>{{binObj.status.name}}</td>
                     <td class="text-center">
                       <div class="d-flex justify-content-center">
-                        <button class="btn btn-warning btn-sm me-1" 
-                          [disabled]="updateBtn" 
+                        <button class="btn btn-warning btn-sm me-1" [disabled]="updateBtn"
                           (click)="GetBinById(binObj.id)">
                           <i class="bi bi-pencil-square"></i>
                         </button>
 
-                        <button class="btn btn-danger btn-sm me-1" 
-                          (click)="DeleteById(binObj.id)">
+                        <button class="btn btn-danger btn-sm me-1" (click)="DeleteById(binObj.id)">
                           <i class="bi bi-archive"></i>
                         </button>
 

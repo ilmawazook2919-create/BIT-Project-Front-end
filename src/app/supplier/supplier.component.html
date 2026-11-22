@@ -11,8 +11,9 @@
     <!-- Supplier Form Card -->
     <div class="row">
       <div class="col-lg-12 mb-3">
-        <div class="card text-dark mb-3 h-100">
-          <div class="card-header bg-info fw-bold">Supplier Form</div>
+        <div class="card shadow-sm text-dark mb-3 h-100 border-0">
+          <div class="card-header text-white fw-bold py-3" style="background-color: #557A8E;"> Supplier Form
+          </div>
           <div class="card-body">
             <form (ngSubmit)="SaveSupplier()">
 
@@ -36,7 +37,7 @@
               <div class="form-group mt-3">
                 <label for="supplierContact">Contact Number</label>
                 <input type="text" class="form-control mt-2" id="supplierContact" name="supplierContact"
-                  [(ngModel)]="supplierObj.supplierContact" placeholder="Enter Contact Number">
+                  [(ngModel)]="supplierObj.supplierContact"  placeholder="Enter Contact Number">
               </div>
 
               <!-- Email Address -->
@@ -58,8 +59,8 @@
                 <label for="status">Status</label>
                 <select class="form-control mt-2" id="status" [(ngModel)]="supplierObj.status" name="status">
                   <option [ngValue]="null" disabled>Select Status</option>
-                  <option value="ACTIVE">Active</option>
-                  <option value="INACTIVE">Inactive</option>
+                  <option value="1">Active</option>
+                  <option value="2">Inactive</option>
                 </select>
               </div>
 
@@ -82,7 +83,7 @@
     <div class="row">
       <div class="col-lg-12 mb-3">
         <div class="card text-dark mb-3 h-100">
-          <div class="card-header bg-info fw-bold">Supplier Table</div>
+          <div class="card-header bg-dark text-white fw-bold border-secondary">Supplier Table</div>
           <div class="card-body">
             
             <!-- Search Bar -->

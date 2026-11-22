@@ -49,52 +49,70 @@ export class CategoryComponent {
   }
 
   // Get Privileges
-  getprivilegeforComponent(): void {
+getprivilegeforComponent(): void {
 
-    this.roleNameForPrivilege = this.userAuthService.getRoles();
+  this.roleNameForPrivilege = this.userAuthService.getRoles();
 
-    if (this.roleNameForPrivilege != null) {
-      for (let i = 0; i < this.roleNameForPrivilege.length; i++) {
-        this.roleName = this.roleNameForPrivilege[i].roleName;
-      }
+  if (this.roleNameForPrivilege != null) {
+    for (let i = 0; i < this.roleNameForPrivilege.length; i++) {
+      this.roleName = this.roleNameForPrivilege[i].roleName;
     }
-     this.moduleId = "3";
-
-    this.privilegeService.GetAllPrivilegeForComponent(this.roleName, this.moduleId)
-      .subscribe(allData => {
-
-        this.allAccess = allData.data.dataList[0];
-
-        this.deleteValue = allData.data.dataList[0].del;
-        this.editValue = allData.data.dataList[0].upd;
-        this.insertValue = allData.data.dataList[0].ins;
-        this.selectValue = allData.data.dataList[0].sel;
-
-        this.buttonDisable(
-          this.deleteValue,
-          this.editValue,
-          this.insertValue,
-          this.selectValue
-        );
-          });
   }
 
-  // Disable Buttons
-  buttonDisable(
-    deleteValue: string,
-    editValue: string,
-    insertValue: string,
-    selectValue: string
-  ) {
+  this.moduleId = "8";
 
-    console.log(editValue);
+  this.privilegeService
+    .GetAllPrivilegeForComponent(this.roleName, this.moduleId)
+    .subscribe({
+      next: (allData) => {
 
-    if (editValue == "0") {
-      this.updateBtn = true;
-    } else {
-      this.updateBtn = false;
-    }
+        console.log("Privilege Response:", allData);
+
+        if (
+          allData &&
+          allData.data &&
+          allData.data.dataList &&
+          allData.data.dataList.length > 0
+        ) 
+      {
+
+          this.allAccess = allData.data.dataList[0];
+
+          this.deleteValue = this.allAccess.del;
+          this.editValue = this.allAccess.upd;
+          this.insertValue = this.allAccess.ins;
+          this.selectValue = this.allAccess.sel;
+
+          this.buttonDisable(
+            this.deleteValue,
+            this.editValue,
+            this.insertValue,
+            this.selectValue
+          );
+
+        } else {
+          console.log("No privilege data found.");
+        }
+
+      },
+      error: (err) => {
+        console.error("Privilege API Error:", err);
       }
+    });
+
+}
+
+
+buttonDisable(deleteValue:string,editValue:string,insertValue:string,selectValue:string){
+console.log(editValue);
+
+    if(editValue=="0"){
+      this.updateBtn=true;
+    }else{
+      this.updateBtn=false;
+    }
+
+}
 
   // Save Category
   SaveCategory(): void {
@@ -140,14 +158,16 @@ export class CategoryComponent {
   }
 
   // Get Category By ID
+// Get Category By ID
   GetCategoryById(ID: any) {
- this.categoryService.GetCategoryById(ID).subscribe(allData => {
-
-      this.categoryObj = allData.data.dataList[0];
-      this.isEditCategory = true;
-
+    this.categoryService.GetCategoryById(ID).subscribe((allData: any) => {
+      if (allData && allData.data) {
+        this.categoryObj = Array.isArray(allData.data) ? allData.data[0] : allData.data;
+        this.isEditCategory = true;
+      } else {
+        console.warn("No category data found for ID:", ID);
+      }
     });
-
   }
 
   // Delete Category
@@ -177,16 +197,27 @@ export class CategoryComponent {
 
   }
 
-  // Get All Categories
+ // Get All Categories
+// Get All Categories
   GetAllCategory() {
-
     this.categoryService.GetAllCategories()
-      .subscribe(allData => {
+      .subscribe((allData: any) => {
+        console.log("Raw Categories API Response:", allData);
 
-        this.categories = allData.data.dataList;
+        // Bulletproof check: ensures we never read properties of null/undefined
+        if (allData && allData.data) {
+          if (Array.isArray(allData.data)) {
+            this.categories = allData.data;
+          } else if (allData.data.dataList && Array.isArray(allData.data.dataList)) {
+            this.categories = allData.data.dataList;
+          } else {
+            this.categories = [];
+          }
+        } else {
+          this.categories = [];
+        }
 
+        console.log("All Categories Array:", this.categories);
       });
-
-  } 
-
+  }
 }

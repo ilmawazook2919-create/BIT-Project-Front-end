@@ -52,7 +52,7 @@ getprivilegeforComponent():void{
         }
   }
 
-    this.moduleId = "2";
+    this.moduleId = "11";
     this.privilegeService.GetAllPrivilegeForComponent(this.roleName,this.moduleId).subscribe(allData=>{ 
     this.allAccess = allData.data.dataList[0];
     

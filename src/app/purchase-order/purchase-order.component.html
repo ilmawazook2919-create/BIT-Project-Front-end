@@ -9,8 +9,10 @@
 
     <div class="row">
       <div class="col-lg-12 mb-3">
-        <div class="card text-dark mb-3 h-100">
-          <div class="card-header bg-info fw-bold">Purchase Order Form</div>
+        <div class="card shadow-sm text-dark mb-3 h-100 border-0">
+          <div class="card-header text-white fw-bold py-3" style="background-color: #557A8E;">
+            <i class="bi bi-ui-checks me-2"></i>Part Form
+          </div>
           <div class="card-body">
             <form (ngSubmit)="SavePurchaseOrder()">
 
@@ -59,10 +61,10 @@
                 <select class="form-control mt-2"
                         [(ngModel)]="purchaseOrderObj.status"
                         name="status">
-                  <option [ngValue]="{name:'PENDING'}">Pending</option>
-                  <option [ngValue]="{name:'APPROVED'}">Approved</option>
-                  <option [ngValue]="{name:'REJECTED'}">Rejected</option>
-                  <option [ngValue]="{name:'COMPLETED'}">Completed</option>
+                  <option [ngValue]="{name:'1'}">Pending</option>
+                  <option [ngValue]="{name:'2'}">Approved</option>
+                  <option [ngValue]="{name:'3'}">Rejected</option>
+                  <option [ngValue]="{name:'4'}">Completed</option>
                 </select>
               </div>
 
@@ -83,11 +85,7 @@
     <div class="row">
       <div class="col-lg-12 mb-3">
         <div class="card text-dark mb-3 h-100">
-
-          <div class="card-header bg-info fw-bold">
-            Purchase Order Table
-          </div>
-
+          <div class="card-header bg-dark text-white fw-bold border-secondary">PurchaseOrder Table</div>
           <div class="card-body">
 
             <div class="input-group my-3">
