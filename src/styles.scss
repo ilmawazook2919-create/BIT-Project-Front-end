@@ -1,20 +1,336 @@
-/* You can add global styles to this file, and also import other style files */
-
-/* Importing Bootstrap SCSS file. */
-// @import 'bootstrap/scss/bootstrap';
 @import url('../node_modules/bootstrap/dist/css/bootstrap.css');
 @import '@ng-select/ng-select/themes/default.theme.css';
 
-.inv-page .btn-add {
+:root {
+  --ink: #16321f;
+  --green: #2f6b2c;
+  --green-deep: #14301c;
+  --green-soft: #e7f3df;
+  --line: #d7e4d2;
+  --page: #f3f6f1;
+  --sidebar: 268px;
+  --topbar: 64px;
+}
+
+html, body {
+  min-height: 100%;
+}
+
+body.app-shell {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: "Segoe UI", sans-serif;
+}
+
+.app-topbar {
+  height: var(--topbar);
+  background: var(--green-deep);
+  border-bottom: 3px solid #8fbf62;
+  z-index: 1040;
+}
+
+.app-topbar .navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.app-topbar .navbar-toggler-icon {
+  filter: invert(1);
+}
+
+.app-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: #f4fbf2 !important;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #8fbf62;
+  color: var(--green-deep);
+}
+
+.role-pill {
+  background: rgba(143, 191, 98, 0.2);
+  color: #e7f6dc;
+  border: 1px solid rgba(143, 191, 98, 0.45);
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+  font-size: 0.78rem;
+  text-transform: capitalize;
+}
+
+.user-btn {
+  color: #f4fbf2;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.15rem;
+}
+
+.user-btn:hover,
+.user-btn:focus {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.app-sidebar {
+  width: var(--sidebar) !important;
+  background: #102616 !important;
+  border-right: 0;
+  top: var(--topbar);
+  height: calc(100vh - var(--topbar));
+}
+
+.side-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem 0.75rem 1.5rem;
+}
+
+.side-label {
+  margin: 1rem 0.55rem 0.35rem;
+  color: #8fbf62;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.side-link {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: #d7e7d4;
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 0.55rem 0.75rem;
+  margin-bottom: 0.15rem;
+  font-size: 0.92rem;
+}
+
+.side-link i {
+  width: 1.1rem;
+  text-align: center;
+  color: #b7d7a4;
+}
+
+.side-link:hover {
+  background: rgba(143, 191, 98, 0.12);
+  color: #fff;
+}
+
+.side-link.active {
+  background: #2f6b2c;
+  color: #fff;
+}
+
+.side-link.active i {
+  color: #fff;
+}
+
+.app-content {
+  margin-left: var(--sidebar);
+  min-height: 100vh;
+  padding: calc(var(--topbar) + 1.25rem) 1.25rem 2rem;
+  background:
+    radial-gradient(circle at top right, rgba(143, 191, 98, 0.18), transparent 28%),
+    var(--page);
+}
+
+.guest-outlet {
+  min-height: 100vh;
+}
+
+.app-content main,
+.guest-outlet main {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.app-content .fs-3,
+.app-content .page-title {
+  color: var(--ink);
+  font-size: 1.45rem !important;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.85rem;
+}
+
+.app-content .card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(20, 48, 28, 0.05);
+  overflow: hidden;
+}
+
+.app-content .card-header,
+.app-content .card-header.bg-info {
+  background: var(--green-soft) !important;
+  color: var(--ink) !important;
+  border-bottom: 1px solid var(--line);
+  font-weight: 700;
+}
+
+.app-content .card-body {
+  color: #243128;
+}
+
+.app-content .form-label,
+.app-content label {
+  color: #3d5344;
+  font-weight: 600;
+  font-size: 0.86rem;
+}
+
+.app-content .form-control,
+.app-content .form-select {
+  border-color: var(--line);
+  border-radius: 8px;
+  min-height: 38px;
+}
+
+.app-content .form-control:focus,
+.app-content .form-select:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 0.2rem rgba(47, 107, 44, 0.15);
+}
+
+.app-content .table {
+  margin-bottom: 0;
+  color: #243128;
+  --bs-table-bg: transparent;
+  --bs-table-striped-bg: #f7faf5;
+}
+
+.app-content .table thead th {
+  background: var(--green-deep);
+  color: #f4fbf2;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-color: #245023;
+  white-space: nowrap;
+}
+
+.app-content .table td {
+  vertical-align: middle;
+  border-color: #e6eee3;
+}
+
+.app-content .btn-primary {
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.app-content .btn-primary:hover,
+.app-content .btn-primary:focus {
+  background: #245623;
+  border-color: #245623;
+}
+
+.app-content .btn-info {
+  background: var(--green-soft);
+  border-color: #c5ddb8;
+  color: var(--ink);
+}
+
+.app-content .btn-info:hover {
+  background: #d7ebcb;
+  color: var(--ink);
+}
+
+.app-content .btn-outline-primary {
+  color: var(--green);
+  border-color: var(--green);
+}
+
+.app-content .btn-outline-primary:hover {
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.inv-page .btn-add,
+.app-content .btn-add {
   width: 44px;
   height: 44px;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+.modal-content {
+  border: 0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.modal-header {
+  background: var(--green-deep);
+  color: #f4fbf2;
+  border-bottom: 0;
+}
+
+.modal-header .btn-close {
+  filter: invert(1);
+}
+
+.modal-footer {
+  background: #f7faf5;
+  border-top: 1px solid var(--line);
+}
+
+.ng-select .ng-select-container {
+  border-color: var(--line);
+  min-height: 38px;
+  border-radius: 8px;
+}
+
+.ng-select.ng-select-focused .ng-select-container {
+  border-color: var(--green);
+  box-shadow: 0 0 0 0.2rem rgba(47, 107, 44, 0.15);
 }
 
 .ng-dropdown-panel {
   z-index: 2000 !important;
+  border-color: var(--line);
+}
+
+.ng-dropdown-panel .ng-option.ng-option-marked {
+  background: var(--green-soft);
+}
+
+.ng-dropdown-panel .ng-option.ng-option-selected {
+  background: #d7ebcb;
+  color: var(--ink);
+}
+
+@media (min-width: 992px) {
+  .app-sidebar.offcanvas {
+    transform: none !important;
+    visibility: visible !important;
+    position: fixed;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .app-content {
+    margin-left: 0;
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
+  }
 }
