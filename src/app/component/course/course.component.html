@@ -39,7 +39,8 @@
             <div class="card-header bg-info fw-bold">Course Table</div>
             <div class="card-body">
                 <div class="input-group my-3 ">
-                    <input type="text" class="form-control" placeholder="Serach Course" aria-label="Search" aria-describedby="button-addon2">
+                    <input type="text" class="form-control" placeholder="Search Course" name="searchCourse"
+                      [ngModel]="pager.searchText" (ngModelChange)="pager.searchText = $event; pager.page = 1">
                     <button class="btn btn-info" type="button" id="button-addon2"><i class="bi bi-search"></i></button>
                   </div>
               <table  id="courseTableId" class="table table-striped table-bordered table-wrapper">
@@ -51,7 +52,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let courseObj of courses">
+                  <tr *ngFor="let courseObj of pager.rows(courses)">
                     <td>{{courseObj.courseCode}}</td>
                     <td>{{courseObj.courseName}}</td>
                     <td class="text-center">
@@ -62,6 +63,14 @@
                   </tr>
                 </tbody>
               </table>
+              <div class="list-pager">
+                <span>{{pager.showing(courses)}}</span>
+                <div>
+                  <button type="button" class="btn btn-outline-secondary btn-sm me-1" (click)="pager.previous()" [disabled]="pager.page <= 1">Previous</button>
+                  <span class="mx-1">{{pager.page}} / {{pager.pageCount(courses)}}</span>
+                  <button type="button" class="btn btn-outline-secondary btn-sm ms-1" (click)="pager.next(courses)" [disabled]="pager.page >= pager.pageCount(courses)">Next</button>
+                </div>
+              </div>
             </div>
           </div>
         </div> 

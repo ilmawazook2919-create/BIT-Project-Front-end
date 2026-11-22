@@ -4,6 +4,7 @@ import { StudentService } from '../services/api/student/student.service';
 import { StatusService } from '../services/api/status/status.service';
 import { FormBuilder } from '@angular/forms';
 import swal from 'sweetalert';
+import { ListPage } from 'src/app/list-page';
 
 @Component({
   selector: 'app-student',
@@ -14,6 +15,7 @@ export class StudentComponent {
 
   studentObj:StudentRepresentation = {};
   students: Array<any> = [];
+  pager = new ListPage();
   allStatus:any;
 
   type:string;

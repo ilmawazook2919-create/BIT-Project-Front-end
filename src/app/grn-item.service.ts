@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class GrnItemService {
-private baseUrl : string= 'http://localhost:8010/api/v1/grnItem';
+private baseUrl : string= 'http://localhost:8010/api/v1/goodsReceivedNoteItem';
 
   constructor(private http:HttpClient) { }
 

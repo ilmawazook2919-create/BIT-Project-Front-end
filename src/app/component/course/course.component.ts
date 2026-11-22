@@ -5,6 +5,7 @@ import { CourseRepresentation } from '../services/api/module/course-representati
 import swal from 'sweetalert';
 import { PrivilegeService } from '../services/api/privilege/privilege.service';
 import { UserAuthService } from '../services/api/user/user-auth.service';
+import { ListPage } from 'src/app/list-page';
 
 @Component({
   selector: 'app-course',
@@ -26,6 +27,7 @@ export class CourseComponent {
   allAccess:any;
   moduleId:string;
   courses: Array<any> = [];
+  pager = new ListPage();
   isEditCourse:boolean=false;
   roleNameForPrivilege:Array<any>=[];
   courseObj:CourseRepresentation = {};

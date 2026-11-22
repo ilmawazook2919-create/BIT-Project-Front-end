@@ -2,9 +2,11 @@ import { Component } from '@angular/core';
 import { PrivilegeService } from '../services/api/privilege/privilege.service';
 import { ModuleService } from '../services/api/mod_component/module.service';
 import { FormBuilder } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RoleService } from '../services/api/role/role.service';
 import { PrivilegeRepresentation } from '../services/api/module/privilege-representation';
 import swal from 'sweetalert';
+import { ListPage } from '../../list-page';
 
 @Component({
   selector: 'app-privilege',
@@ -30,12 +32,15 @@ export class PrivilegeComponent {
   isEditModule:boolean=true;
   isEditPrivilege:boolean=true;
   privilegeObj:PrivilegeRepresentation = {};
+  pager = new ListPage();
+  modalRef: any;
 
   constructor(
     public fb:FormBuilder,
     private roleService:RoleService,
     private moduleService:ModuleService,
     private privilageService:PrivilegeService,
+    private modalService: NgbModal,
   ){}
 
   ngOnInit(): void {
@@ -177,6 +182,29 @@ GetPrivilegeById(ID:any){
   })
 }
 
+openCreate(content: any): void {
+  this.isEditPrivilege = false;
+  this.isEditRole = false;
+  this.isEditModule = false;
+  this.isEnabled = false;
+  this.privilegeObj = {};
+  this.roleValue = null;
+  this.moduleValue = null;
+  this.modalRef = this.modalService.open(content, { size: 'lg', backdrop: 'static', scrollable: true });
+}
+
+openEdit(ID: any, content: any): void {
+  this.modalRef = this.modalService.open(content, { size: 'lg', backdrop: 'static', scrollable: true });
+  this.modalRef.shown.subscribe(() => this.GetPrivilegeById(ID));
+}
+
+closeForm(): void {
+  if (this.modalRef) {
+    this.modalRef.close();
+    this.modalRef = null;
+  }
+}
+
 
 DeleteById(E:any){}
 
@@ -195,6 +223,7 @@ SavePrivilege(){
           this.privilageService.createPrivilege(this.privilegeObj,this.type)
           .subscribe({
             next:(result):void=>{
+              this.closeForm();
               this.getAllPrivilege(); 
               console.log(result);
                
@@ -209,6 +238,7 @@ SavePrivilege(){
       this.privilageService.createPrivilege(this.privilegeObj,this.type)
           .subscribe({
             next:(result):void=>{
+              this.closeForm();
               this.getAllPrivilege();  
             }
           });

@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserAuthService } from '../component/services/api/user/user-auth.service';
 import { PrivilegeService } from '../component/services/api/privilege/privilege.service';
 import swal from 'sweetalert';
 import { WarehouseRepresentation } from '../component/services/api/module/warehouse-representation';
 import { WarehouseService } from '../warehouse.service';
+import { ListPage } from '../list-page';
 @Component({
   selector: 'app-warehouse',
   templateUrl: './warehouse.component.html',
@@ -27,11 +29,14 @@ export class WarehouseComponent {
     isEditWarehouse: boolean = false; 
     roleNameForPrivilege: Array<any> = [];
     warehouseObj:WarehouseRepresentation = {};
+    pager = new ListPage();
+    modalRef: any;
 
         constructor(
         private warehouseService: WarehouseService,
         private privilegeService: PrivilegeService,
         private userAuthService: UserAuthService,
+        private modalService: NgbModal,
         public fb: FormBuilder
       ) {}
 
@@ -91,6 +96,7 @@ SaveWarehouse():void{
           this.warehouseService.createWarehouse(this.warehouseObj,this.type)
           .subscribe({
             next:(result):void=>{
+              this.closeForm();
               this.GetAllWarehouse();  
             }
           });
@@ -104,6 +110,7 @@ SaveWarehouse():void{
       this.warehouseService.createWarehouse(this.warehouseObj,this.type)
           .subscribe({
             next:(result):void=>{
+              this.closeForm();
               this.GetAllWarehouse();  
             }
           });
@@ -118,6 +125,27 @@ GetWarehouseById(ID:any){
     this.warehouseObj = allData.data.dataList[0];
     this.isEditWarehouse = true;
   })
+}
+
+openCreate(content: any): void {
+  this.isEditWarehouse = false;
+  this.warehouseObj = {};
+  this.modalRef = this.modalService.open(content, { size: 'lg', backdrop: 'static', scrollable: true });
+}
+
+openEdit(ID: any, content: any): void {
+  this.warehouseService.GetWarehouseById(ID).subscribe(allData => {
+    this.warehouseObj = allData.data.dataList[0];
+    this.isEditWarehouse = true;
+    this.modalRef = this.modalService.open(content, { size: 'lg', backdrop: 'static', scrollable: true });
+  });
+}
+
+closeForm(): void {
+  if (this.modalRef) {
+    this.modalRef.close();
+    this.modalRef = null;
+  }
 }
 
 DeleteById(ID:any){

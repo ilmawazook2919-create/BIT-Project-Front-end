@@ -2,9 +2,11 @@ import { Component } from '@angular/core';
 import { SupplierRepresentation } from '../component/services/api/module/supplier-representation';
 import { UserAuthService } from '../component/services/api/user/user-auth.service';
 import { FormBuilder } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PrivilegeService } from '../component/services/api/privilege/privilege.service';
 import { SupplierService } from '../supplier.service';
 import swal from 'sweetalert';
+import { ListPage } from '../list-page';
 
 @Component({
   selector: 'app-supplier',
@@ -29,11 +31,14 @@ export class SupplierComponent {
     isEditSupplier: boolean = false; 
     roleNameForPrivilege: Array<any> = [];
     supplierObj:SupplierRepresentation = {};
+    pager = new ListPage();
+    modalRef: any;
 
         constructor(
         private supplierService: SupplierService,
         private privilegeService: PrivilegeService,
         private userAuthService: UserAuthService,
+        private modalService: NgbModal,
         public fb: FormBuilder
       ) {}
 
@@ -93,6 +98,7 @@ SaveSupplier():void{
           this.supplierService.createSupplier(this.supplierObj,this.type)
           .subscribe({
             next:(result):void=>{
+              this.closeForm();
               this.GetAllSupplier();  
             }
           });
@@ -106,6 +112,7 @@ SaveSupplier():void{
       this.supplierService.createSupplier(this.supplierObj,this.type)
           .subscribe({
             next:(result):void=>{
+              this.closeForm();
               this.GetAllSupplier();  
             }
           });
@@ -120,6 +127,27 @@ GetSupplierById(ID:any){
     this.supplierObj = allData.data.dataList[0];
     this.isEditSupplier = true;
   })
+}
+
+openCreate(content: any): void {
+  this.isEditSupplier = false;
+  this.supplierObj = {};
+  this.modalRef = this.modalService.open(content, { size: 'lg', backdrop: 'static', scrollable: true });
+}
+
+openEdit(ID: any, content: any): void {
+  this.supplierService.GetSupplierById(ID).subscribe(allData => {
+    this.supplierObj = allData.data.dataList[0];
+    this.isEditSupplier = true;
+    this.modalRef = this.modalService.open(content, { size: 'lg', backdrop: 'static', scrollable: true });
+  });
+}
+
+closeForm(): void {
+  if (this.modalRef) {
+    this.modalRef.close();
+    this.modalRef = null;
+  }
 }
 
 DeleteById(ID:any){

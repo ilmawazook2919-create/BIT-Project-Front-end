@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserAuthService } from '../services/api/user/user-auth.service';
 import { PrivilegeService } from '../services/api/privilege/privilege.service';
 import { BinRepresentation } from '../services/api/module/bin-representation';
 import { BinService } from 'src/app/bin.service';
 import swal from 'sweetalert';
+import { ListPage } from 'src/app/list-page';
 
 @Component({
   selector: 'app-bin',
@@ -28,11 +30,14 @@ export class BinComponent {
     isEditBin: boolean = false; 
     roleNameForPrivilege: Array<any> = [];
     binObj:BinRepresentation = {};
+    pager = new ListPage();
+    modalRef: any;
 
         constructor(
         private binService: BinService,
         private privilegeService: PrivilegeService,
         private userAuthService: UserAuthService,
+        private modalService: NgbModal,
         public fb: FormBuilder
       ) {}
 
@@ -92,6 +97,7 @@ SaveBin():void{
           this.binService.createBin(this.binObj,this.type)
           .subscribe({
             next:(result):void=>{
+              this.closeForm();
               this.GetAllBin();  
             }
           });
@@ -105,6 +111,7 @@ SaveBin():void{
       this.binService.createBin(this.binObj,this.type)
           .subscribe({
             next:(result):void=>{
+              this.closeForm();
               this.GetAllBin();  
             }
           });
@@ -119,6 +126,27 @@ GetBinById(ID:any){
     this.binObj = allData.data.dataList[0];
     this.isEditBin = true;
   })
+}
+
+openCreate(content: any): void {
+  this.isEditBin = false;
+  this.binObj = {};
+  this.modalRef = this.modalService.open(content, { size: 'lg', backdrop: 'static', scrollable: true });
+}
+
+openEdit(ID: any, content: any): void {
+  this.binService.GetBinById(ID).subscribe(allData => {
+    this.binObj = allData.data.dataList[0];
+    this.isEditBin = true;
+    this.modalRef = this.modalService.open(content, { size: 'lg', backdrop: 'static', scrollable: true });
+  });
+}
+
+closeForm(): void {
+  if (this.modalRef) {
+    this.modalRef.close();
+    this.modalRef = null;
+  }
 }
 
 DeleteById(ID:any){

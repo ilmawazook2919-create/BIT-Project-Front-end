@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { UserAuthService } from '../services/api/user/user-auth.service';
 import { FormBuilder } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PrivilegeService } from '../services/api/privilege/privilege.service';
 import swal from 'sweetalert';
 import { CategoryRepresentation } from '../services/api/module/category-representation';
 import { CategoryService } from 'src/app/category.service';
+import { ListPage } from 'src/app/list-page';
 
 @Component({
   selector: 'app-category',
@@ -35,11 +37,14 @@ export class CategoryComponent {
   roleNameForPrivilege: Array<any> = [];
 
   categoryObj: CategoryRepresentation = {};
+  pager = new ListPage();
+  modalRef: any;
 
   constructor(
     private categoryService: CategoryService,
     private privilegeService: PrivilegeService,
     private userAuthService: UserAuthService,
+    private modalService: NgbModal,
     public fb: FormBuilder
   ) { }
    ngOnInit(): void {
@@ -115,6 +120,7 @@ export class CategoryComponent {
              this.categoryService.createCategory(this.categoryObj, this.type)
               .subscribe({
                 next: (result): void => {
+                  this.closeForm();
                   this.GetAllCategory();
                 }
               });
@@ -130,6 +136,7 @@ export class CategoryComponent {
          this.categoryService.createCategory(this.categoryObj, this.type)
         .subscribe({
           next: (result): void => {
+            this.closeForm();
             this.GetAllCategory();
           }
         });
@@ -148,6 +155,27 @@ export class CategoryComponent {
 
     });
 
+  }
+
+  openCreate(content: any): void {
+    this.isEditCategory = false;
+    this.categoryObj = {};
+    this.modalRef = this.modalService.open(content, { size: 'lg', backdrop: 'static', scrollable: true });
+  }
+
+  openEdit(ID: any, content: any): void {
+    this.categoryService.GetCategoryById(ID).subscribe(allData => {
+      this.categoryObj = allData.data.dataList[0];
+      this.isEditCategory = true;
+      this.modalRef = this.modalService.open(content, { size: 'lg', backdrop: 'static', scrollable: true });
+    });
+  }
+
+  closeForm(): void {
+    if (this.modalRef) {
+      this.modalRef.close();
+      this.modalRef = null;
+    }
   }
 
   // Delete Category

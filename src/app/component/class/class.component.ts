@@ -5,6 +5,7 @@ import { FormBuilder } from '@angular/forms';
 import { ClassRepresentation } from '../services/api/module/class-representation';
 import swal from 'sweetalert';
 import { ClassService } from '../services/api/student_course/class.service';
+import { ListPage } from 'src/app/list-page';
 @Component({
   selector: 'app-class',
   templateUrl: './class.component.html',
@@ -23,6 +24,7 @@ export class ClassComponent {
   studentValue:any;
   isEditClass:Boolean = false;
   classes: Array<any> = [];
+  pager = new ListPage();
   allCourse: Array<any> = [];
 
   constructor(
